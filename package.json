@@ -1,0 +1,17 @@
+{
+  "name": "oxxodueno",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "react": "15.3.1",
+    "react-native": "0.32.0",
+    "react-native-dropdown": "0.0.6",
+    "react-native-linear-gradient": "^1.5.12",
+    "react-native-menu": "^0.20.1",
+    "react-native-selectme": "^1.2.0",
+    "react-native-vector-icons": "^2.1.0"
+  }
+}
