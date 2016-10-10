@@ -88,6 +88,10 @@ class MainNavigator extends Component{
             return (<Categories navigator={navigator} title="Categories"/>);
          case 'home':
             return (<Home navigator={navigator} title="Home" />);
+         case 'encuestas':
+            return(<Encuestas navigator={navigator} title="Encuestas"/>);
+         case 'preguntas':
+            return(<Preguntas navigator={navigator} title="Preguntas"/>);
       }
    }
 
@@ -101,6 +105,10 @@ class MainNavigator extends Component{
             return Navigator.SceneConfigs.PushFromRight;
          case 'home':
             return Navigator.SceneConfigs.FloatFromBottom;
+         case 'encuestas':
+            return Navigator.SceneConfigs.PushFromRight;
+         case 'preguntas':
+            return Navigator.SceneConfigs.PushFromRight;
       }
    }
 
@@ -159,7 +167,7 @@ class Home extends Component{
 
    renderRows(row){
       return(
-         <TouchableHighlight onPress={()=>this.navSecond()}>
+         <TouchableOpacity onPress={()=>this.navSecond()}>
             <View style={{ shadowColor: "#000000",shadowOpacity: 0.1,shadowRadius: 2,shadowOffset: {height: 1,width: 0},flexDirection:'row',justifyContent:'center',alignItems:'center',height:140,marginBottom:10,padding:10,backgroundColor:'rgb(255, 255, 255)',borderRadius:0}}>
                <Text style={{fontSize:30,flex:2,fontWeight:'800',color:'rgb(255, 215, 73)'}}>
                   {row}
@@ -171,7 +179,7 @@ class Home extends Component{
                   3/4
                </Text>
             </View>
-         </TouchableHighlight>
+         </TouchableOpacity>
       )
    }
 
@@ -193,11 +201,16 @@ class Categories extends Component{
          dataSource: ds.cloneWithRows(['Satisfaccion', 'Contenido','Jefe Subordinado'])
       }
    }
-
+   navSecond(){
+     this.props.navigator.push({
+       id: 'encuestas'
+     })
+   }
    renderRows(row){
       return(
+        <TouchableOpacity onPress={this.navSecond.bind(this)}>
          <View>
-            <View style={{ shadowColor: "#000000",shadowOpacity: 0.1,shadowRadius: 2,shadowOffset: {height: 1,width: 0},flexDirection:'row',justifyContent:'center',alignItems:'center',height:90,marginBottom:10,padding:10,backgroundColor:'rgb(255, 255, 255)',borderRadius:0}}>
+            <View style={{ shadowColor: "#000000",shadowOpacity: 0.1,shadowRadius: 2,shadowOffset: {height: 1,width: 0},flexDirection:'row',justifyContent:'center',alignItems:'center',height:110,marginBottom:10,padding:10,backgroundColor:'rgb(255, 255, 255)',borderRadius:0}}>
                <View style={{flex:1}}>
                   <Icon name="smile-o" size={50} color="rgb(255, 215, 73)" />
                </View>
@@ -218,6 +231,7 @@ class Categories extends Component{
                </View>
             </View>
          </View>
+         </TouchableOpacity>
       )
    }
 
@@ -267,6 +281,64 @@ class Seleccion extends Component{
             </Select>
             <OptionList ref="OPTIONLIST" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
             <Button onPress={this.navSecond.bind(this)}>CONTINUAR</Button>
+         </LinearGradient>
+      )
+   }
+}
+class Encuestas extends Component{
+   constructor(props) {
+      super(props)
+   }
+   navSecond(){
+    this.props.navigator.push({
+      id: 'preguntas'
+    })
+   }
+   render(){
+      return(
+         <LinearGradient colors={['#ffc34d','#ffe6b3']} style={stylesWelcome.container}>
+           <View>
+              <Icon name="smile-o" size={100} color="rgb(255, 255, 255)" />
+           </View>
+           <Text style={{fontSize:28,color:'#ffffff'}}>
+              Satisfacción
+           </Text>
+           <Text style={{color:'#b37700',marginBottom:20}}>
+              11 Preguntas
+           </Text>
+           <Text style={{marginBottom: 20,fontSize: 18,textAlign: 'justify',color: '#f4efef',}}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+           </Text>
+           <Button onPress={this.navSecond.bind(this)}>COMENZAR</Button>
+         </LinearGradient>
+      )
+   }
+}
+class Preguntas extends Component{
+   constructor(props) {
+      super(props)
+   }
+   navSecond(){
+    this.props.navigator.push({
+      id: 'preguntas'
+    })
+   }
+   render(){
+      return(
+         <LinearGradient colors={['#ffc34d','#ffe6b3']} style={stylesWelcome.container}>
+           <View>
+              <Icon name="smile-o" size={100} color="rgb(255, 255, 255)" />
+           </View>
+           <Text style={{fontSize:28,color:'#ffffff'}}>
+              Satisfacción
+           </Text>
+           <Text style={{color:'#b37700',marginBottom:20}}>
+              11 Preguntas
+           </Text>
+           <Text style={{marginBottom: 20,fontSize: 18,textAlign: 'justify',color: '#f4efef',}}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+           </Text>
+           <Button onPress={this.navSecond.bind(this)}>COMENZAR</Button>
          </LinearGradient>
       )
    }
