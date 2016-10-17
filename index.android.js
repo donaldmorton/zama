@@ -6,6 +6,7 @@
  import LinearGradient from 'react-native-linear-gradient'
  import Button from './button.js'
  import Icon from 'react-native-vector-icons/FontAwesome';
+ import EncuestasBottom from './encuestasBottom'
 
 import React, { Component } from 'react';
 import {
@@ -18,6 +19,7 @@ import {
   ListView,
   TouchableOpacity,
   TouchableHighlight,
+  TextInput,
   View
 } from 'react-native';
 import DropDown, {
@@ -92,6 +94,8 @@ class MainNavigator extends Component{
             return(<Encuestas navigator={navigator} title="Encuestas"/>);
          case 'preguntas':
             return(<Preguntas navigator={navigator} title="Preguntas"/>);
+         case 'comentarios':
+            return(<Comentarios navigator={navigator} title="Comentarios"/>);
       }
    }
 
@@ -108,6 +112,8 @@ class MainNavigator extends Component{
          case 'encuestas':
             return Navigator.SceneConfigs.PushFromRight;
          case 'preguntas':
+            return Navigator.SceneConfigs.PushFromRight;
+         case 'comentarios':
             return Navigator.SceneConfigs.PushFromRight;
       }
    }
@@ -138,7 +144,7 @@ class MainNavigator extends Component{
       }
 
       return(
-         <Navigator initialRoute={{id: 'welcome'}} renderScene={this.navigatorRenderScene}
+         <Navigator initialRoute={{id: 'comentarios'}} renderScene={this.navigatorRenderScene}
          configureScene = {this.navigatorConfigureScene}
          navigationBar={
             <Navigator.NavigationBar
@@ -296,7 +302,7 @@ class Encuestas extends Component{
    }
    render(){
       return(
-         <LinearGradient colors={['#ffc34d','#ffe6b3']} style={stylesWelcome.container}>
+         <LinearGradient colors={['#ffc34d','#ffdd99']} style={stylesWelcome.container}>
            <View>
               <Icon name="smile-o" size={100} color="rgb(255, 255, 255)" />
            </View>
@@ -320,26 +326,119 @@ class Preguntas extends Component{
    }
    navSecond(){
     this.props.navigator.push({
+      id: 'comentarios'
+    })
+   }
+   render(){
+      return(
+         <Navigator renderScene={(route, navigator) =>
+           <View style={{flex:10,flexDirection:'column'}}>
+           <LinearGradient colors={['#f22a2a','#ed6767']} style={{flex:1,justifyContent:'center'}}>
+            <View style={{backgroundColor:'transparent'}}>
+              <Text style={{color:'#FFFFFF',fontSize:18,textAlign:'center',fontWeight:'bold'}}>SATISFACCIÓN</Text>
+            </View>
+           </LinearGradient>
+              <LinearGradient colors={['#ffc34d','#ffdd99']} style={{flex:9}}>
+                <View style={{flex:10,flexDirection:'column'}}>
+                <View style={{backgroundColor:'#FFFFFF',margin:15,borderRadius:4,flex:9,elevation:3}}>
+                  <Text style={{color:'#FFC34D',textAlign:'center',fontSize:24,marginTop:15,fontWeight:'bold'}}>Los Instructores:</Text>
+                  <Text style={{fontSize:16,color:'#000000',textAlign:'center',marginTop:23,marginBottom:15}}>1.Mostraron comprensión del tema</Text>
+                  <View style={{backgroundColor:'#d80e0e',marginTop:20}}>
+                    <TouchableOpacity onPress={this.navSecond.bind(this)}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
+                      <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>Muy de acuerdo</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{backgroundColor:'#d80e0e'}}>
+                    <TouchableOpacity onPress={this.navSecond.bind(this)}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
+                      <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>De acuerdo</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{backgroundColor:'#d80e0e'}}>
+                    <TouchableOpacity onPress={this.navSecond.bind(this)}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
+                      <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>En desacuerdo</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{backgroundColor:'#d80e0e'}}>
+                    <TouchableOpacity onPress={this.navSecond.bind(this)}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
+                      <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>Muy desacuerdo</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <EncuestasBottom/>
+                </View>
+                <View style={{backgroundColor:'transparent',flex:1,alignItems:'center'}}>
+                  <Text style={{color:'#FFFFFF',textAlign:'center',fontWeight:'bold',fontSize:22}}>1/11</Text>
+                </View>
+                </View>
+              </LinearGradient>
+             </View>
+           }
+         />
+      )
+   }
+}
+class Comentarios extends Component{
+   constructor(props) {
+      super(props)
+      this.state={
+        text:''
+      }
+   }
+   navSecond(){
+    this.props.navigator.push({
+      id: 'categories'
+    })
+   }
+   navFirst(){
+    this.props.navigator.push({
       id: 'preguntas'
     })
    }
    render(){
       return(
-         <LinearGradient colors={['#ffc34d','#ffe6b3']} style={stylesWelcome.container}>
-           <View>
-              <Icon name="smile-o" size={100} color="rgb(255, 255, 255)" />
-           </View>
-           <Text style={{fontSize:28,color:'#ffffff'}}>
-              Satisfacción
-           </Text>
-           <Text style={{color:'#b37700',marginBottom:20}}>
-              11 Preguntas
-           </Text>
-           <Text style={{marginBottom: 20,fontSize: 18,textAlign: 'justify',color: '#f4efef',}}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-           </Text>
-           <Button onPress={this.navSecond.bind(this)}>COMENZAR</Button>
-         </LinearGradient>
+         <Navigator renderScene={(route, navigator) =>
+           <View style={{flex:10,flexDirection:'column'}}>
+           <LinearGradient colors={['#f22a2a','#ed6767']} style={{flex:1,flexDirection:'row',justifyContent:'center'}}>
+
+           </LinearGradient>
+              <LinearGradient colors={['#ffc34d','#ffdd99']} style={{flex:9}}>
+                <View style={{flex:10,flexDirection:'column'}}>
+                <View style={{backgroundColor:'#FFFFFF',margin:15,borderRadius:4,flex:9,elevation:3}}>
+                  <View style={{flex:10,flexDirection:'column'}}>
+                    <View style={{flex:2,backgroundColor:'transparent'}}>
+                      <Text style={{color:'#FFC34D',textAlign:'center',fontSize:24,marginTop:15,fontWeight:'bold'}}>Comentarios adicionales:</Text>
+                    </View>
+                    <View style={{backgroundColor:'#e6e6e6',marginLeft:12,marginRight:12,marginBottom:15,flex:8}}>
+                      <TextInput
+                        style={{backgroundColor:'transparent',flex:1,textAlignVertical:'top'}}
+                        multiline = {true}
+                        placeholder={'Escribe aquí...'}
+                        onChangeText={(text) => this.setState({text})}
+                        value={this.state.text}
+                      />
+                    </View>
+                  </View>
+                </View>
+                <View style={{backgroundColor:'transparent',flex:1,alignItems:'center'}}>
+                  <Text style={{color:'#FFFFFF',textAlign:'center',fontWeight:'bold',fontSize:22}}>11/11</Text>
+                </View>
+                </View>
+              </LinearGradient>
+             </View>
+           }
+           navigationBar={
+     <Navigator.NavigationBar
+       routeMapper={{
+         LeftButton: (route, navigator, index, navState) =>
+          { return (<View><TouchableOpacity onPress={()=>1+1}><Text style={{marginTop:12,marginLeft:5}}><Icon name="long-arrow-left" size={25} color="#FFFFFF"style={{marginLeft:-3}}/></Text></TouchableOpacity></View>); },
+         RightButton: (route, navigator, index, navState) =>
+           { return (<TouchableOpacity onPress={this.navSecond.bind(this)}><View><Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:15,marginRight:8}}>FINALIZAR</Text></View></TouchableOpacity>); },
+         Title: (route, navigator, index, navState) =>
+           { return (<Text style={{textAlign:'center',marginLeft:40,color:'#FFFFFF',fontWeight:'bold',marginTop:15}}>SATISFACCIÓN</Text>); },
+       }}
+       style={{backgroundColor: 'transparent'}}
+     />
+  }
+         />
       )
    }
 }
