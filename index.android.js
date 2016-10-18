@@ -144,7 +144,7 @@ class MainNavigator extends Component{
       }
 
       return(
-         <Navigator initialRoute={{id: 'comentarios'}} renderScene={this.navigatorRenderScene}
+         <Navigator initialRoute={{id: 'welcome'}} renderScene={this.navigatorRenderScene}
          configureScene = {this.navigatorConfigureScene}
          navigationBar={
             <Navigator.NavigationBar
@@ -174,7 +174,7 @@ class Home extends Component{
    renderRows(row){
       return(
          <TouchableOpacity onPress={()=>this.navSecond()}>
-            <View style={{ shadowColor: "#000000",shadowOpacity: 0.1,shadowRadius: 2,shadowOffset: {height: 1,width: 0},flexDirection:'row',justifyContent:'center',alignItems:'center',height:140,marginBottom:10,padding:10,backgroundColor:'rgb(255, 255, 255)',borderRadius:0}}>
+            <View style={{ elevation:2,shadowColor: "#000000",shadowOpacity: 0.1,shadowRadius: 2,shadowOffset: {height: 1,width: 0},flexDirection:'row',justifyContent:'center',alignItems:'center',height:140,marginBottom:10,padding:10,backgroundColor:'rgb(255, 255, 255)',borderRadius:0}}>
                <Text style={{fontSize:30,flex:2,fontWeight:'800',color:'rgb(255, 215, 73)'}}>
                   {row}
                </Text>
@@ -191,9 +191,31 @@ class Home extends Component{
 
    render(){
       return(
-         <LinearGradient style={{flex:1}} colors={['#e8e6e6','#ffffff']}>
-            <ListView style={{marginTop:80,flex:1,flexDirection:'column'}}  dataSource={this.state.dataSource} renderRow = {this.renderRows.bind(this)}/>
-         </LinearGradient>
+        <Navigator renderScene={(route, navigator) =>
+          <View style={{flex:10,flexDirection:'column'}}>
+          <LinearGradient colors={['#f22a2a','#ed6767']} style={{flex:1}}>
+
+          </LinearGradient>
+             <View style={{flex:9,backgroundColor:'#fafafa'}}>
+                <Text style={{color:'#f22a2a',marginLeft:8,marginTop:5,marginBottom:8,fontWeight:'bold'}}>Categorías</Text>
+                <ListView style={{flex:1,flexDirection:'column'}}  dataSource={this.state.dataSource} renderRow = {this.renderRows.bind(this)}/>
+             </View>
+          </View>
+          }
+          navigationBar={
+        <Navigator.NavigationBar
+        routeMapper={{
+        LeftButton: (route, navigator, index, navState) =>
+         { return (<View><TouchableOpacity onPress={()=>1+1}><Text style={{marginTop:12,marginLeft:5}}><Icon name="long-arrow-left" size={25} color="#FFFFFF"style={{marginLeft:-3}}/></Text></TouchableOpacity></View>); },
+        RightButton: (route, navigator, index, navState) =>
+          { return (<Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:14}}>ASESOR DE TIENDA</Text>); },
+        Title: (route, navigator, index, navState) =>
+          { return (<Text></Text>); },
+        }}
+        style={{backgroundColor: 'transparent'}}
+        />
+        }
+        />
       )
    }
 }
@@ -216,7 +238,7 @@ class Categories extends Component{
       return(
         <TouchableOpacity onPress={this.navSecond.bind(this)}>
          <View>
-            <View style={{ shadowColor: "#000000",shadowOpacity: 0.1,shadowRadius: 2,shadowOffset: {height: 1,width: 0},flexDirection:'row',justifyContent:'center',alignItems:'center',height:110,marginBottom:10,padding:10,backgroundColor:'rgb(255, 255, 255)',borderRadius:0}}>
+            <View style={{ elevation:2,shadowColor: "#000000",shadowOpacity: 0.1,shadowRadius: 2,shadowOffset: {height: 1,width: 0},flexDirection:'row',justifyContent:'center',alignItems:'center',height:110,marginBottom:10,padding:10,backgroundColor:'rgb(255, 255, 255)',borderRadius:0}}>
                <View style={{flex:1}}>
                   <Icon name="smile-o" size={50} color="rgb(255, 215, 73)" />
                </View>
@@ -243,9 +265,31 @@ class Categories extends Component{
 
    render(){
       return(
-         <LinearGradient style={{flex:1}} colors={['#e8e6e6','#ffffff']}>
-            <ListView style={{marginTop:80,flex:1,flexDirection:'column'}}  dataSource={this.state.dataSource} renderRow = {this.renderRows.bind(this)}/>
-         </LinearGradient>
+        <Navigator renderScene={(route, navigator) =>
+          <View style={{flex:10,flexDirection:'column'}}>
+          <LinearGradient colors={['#f22a2a','#ed6767']} style={{flex:1}}>
+
+          </LinearGradient>
+             <View style={{flex:9,backgroundColor:'#fafafa'}}>
+                <Text style={{color:'#f22a2a',marginLeft:8,marginTop:5,marginBottom:8,fontWeight:'bold'}}>Encuestas</Text>
+                <ListView style={{marginTop:3,flex:1,flexDirection:'column'}}  dataSource={this.state.dataSource} renderRow = {this.renderRows.bind(this)}/>
+             </View>
+          </View>
+          }
+          navigationBar={
+        <Navigator.NavigationBar
+        routeMapper={{
+        LeftButton: (route, navigator, index, navState) =>
+         { return (<View><TouchableOpacity onPress={()=>1+1}><Text style={{marginTop:12,marginLeft:5}}><Icon name="long-arrow-left" size={25} color="#FFFFFF"style={{marginLeft:-3}}/></Text></TouchableOpacity></View>); },
+        RightButton: (route, navigator, index, navState) =>
+          { return (<Text></Text>); },
+        Title: (route, navigator, index, navState) =>
+          { return (<Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:14,marginLeft:10}}>REVISIONES VERTICALES</Text>); },
+        }}
+        style={{backgroundColor: 'transparent'}}
+        />
+        }
+        />
       )
    }
 }
@@ -274,7 +318,7 @@ class Seleccion extends Component{
          <LinearGradient colors={['#f22a2a','#ed6767']} style={stylesWelcome.container}>
             <Image style={stylesWelcome.description,{width:200,height:100,marginBottom:80}} source={require('./img/oxxo.png')}/>
             <Text style={stylesWelcome.description}>
-               Elige tu puesto!
+               Elige tu puesto:
             </Text>
             <Select style={stylesWelcome.select} width={250} ref="SELECT1" optionListRef={this._getOptionList.bind(this)} defaultValue="Asesor de tienda" onSelect={this._canada.bind(this)}>
                <Option value = {{id : "alberta"}}>Alberta</Option>
@@ -302,21 +346,42 @@ class Encuestas extends Component{
    }
    render(){
       return(
-         <LinearGradient colors={['#ffc34d','#ffdd99']} style={stylesWelcome.container}>
-           <View>
-              <Icon name="smile-o" size={100} color="rgb(255, 255, 255)" />
-           </View>
-           <Text style={{fontSize:28,color:'#ffffff'}}>
-              Satisfacción
-           </Text>
-           <Text style={{color:'#b37700',marginBottom:20}}>
-              11 Preguntas
-           </Text>
-           <Text style={{marginBottom: 20,fontSize: 18,textAlign: 'justify',color: '#f4efef',}}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-           </Text>
-           <Button onPress={this.navSecond.bind(this)}>COMENZAR</Button>
-         </LinearGradient>
+        <Navigator renderScene={(route, navigator) =>
+          <View style={{flex:10,flexDirection:'column'}}>
+          <LinearGradient colors={['#f22a2a','#ed6767']} style={{flex:1}}>
+
+          </LinearGradient>
+             <LinearGradient colors={['#ffc34d','#ffdd99']} style={{flex:9,alignItems:'center'}}>
+             <View style={{marginTop:20}}>
+                <Icon name="smile-o" size={100} color="rgb(255, 255, 255)" />
+             </View>
+             <Text style={{fontSize:28,color:'#ffffff'}}>
+                Satisfacción
+             </Text>
+             <Text style={{color:'#b37700',marginBottom:20}}>
+                11 Preguntas
+             </Text>
+             <Text style={{marginBottom: 20,fontSize: 18,textAlign: 'justify',color: '#f4efef',}}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+             </Text>
+             <Button onPress={this.navSecond.bind(this)}>COMENZAR</Button>
+             </LinearGradient>
+            </View>
+          }
+          navigationBar={
+    <Navigator.NavigationBar
+      routeMapper={{
+        LeftButton: (route, navigator, index, navState) =>
+         { return (<View><TouchableOpacity onPress={()=>1+1}><Text style={{marginTop:12,marginLeft:5}}><Icon name="long-arrow-left" size={25} color="#FFFFFF"style={{marginLeft:-3}}/></Text></TouchableOpacity></View>); },
+        RightButton: (route, navigator, index, navState) =>
+          { return (<Text></Text>); },
+        Title: (route, navigator, index, navState) =>
+          { return (<Text style={{textAlign:'center',marginLeft:10,color:'#FFFFFF',fontWeight:'bold',marginTop:15}}>REVISIONES VERTICALES</Text>); },
+      }}
+      style={{backgroundColor: 'transparent'}}
+    />
+ }
+        />
       )
    }
 }
