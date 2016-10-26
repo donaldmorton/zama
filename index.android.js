@@ -30,45 +30,6 @@ import DropDown, {
 
 var deviceWidth = Dimensions.get('window').width;
 
-
-
-class oxxodueno extends Component {
-  render() {
-    return (
-      <LinearGradient colors={['#f22a2a','#ed6767']} style={styles.linearGradient}>
-         <Image style={{width:100,height:100}} source={require('./img/calisto.png')} />
-      </LinearGradient>
-    );
-  }
-}
-
-class Welcome extends Component{
-   constructor(props) {
-      super(props)
-   }
-   navSecond(){
-    this.props.navigator.push({
-      id: 'seleccion'
-    })
-   }
-   render(){
-      return(
-         <LinearGradient colors={['#f22a2a','#ed6767']} style={stylesWelcome.container}>
-            <Image style={stylesWelcome.description,{width:200,height:100}} source={require('./img/oxxo.png')}/>
-               <Text style={stylesWelcome.description}>
-                  Hola!
-               </Text>
-               <Text style={stylesWelcome.description}>
-                  dcscdscsdcdscdcd sdcds sdcsd sdcds sdcd sdcdsc sdc
-                  dcscdscsdcdscdcd sdcds sdcsd sdcds sdcd sdcdsc sdc
-                  dcscdscsdcdscdcd sdcds sdcsd sdcds sdcd sdcdsc sdc
-               </Text>
-               <Button onPress={this.navSecond.bind(this)}>CONTINUAR</Button>
-         </LinearGradient>
-      )
-   }
-}
-
 class MainNavigator extends Component{
 
    constructor(props) {
@@ -144,14 +105,44 @@ class MainNavigator extends Component{
       }
 
       return(
-         <Navigator initialRoute={{id: 'welcome'}} renderScene={this.navigatorRenderScene}
-         configureScene = {this.navigatorConfigureScene}
-         navigationBar={
-            <Navigator.NavigationBar
-            routeMapper={NavigationBarRouteMapper}
-            />
-         }
-         />
+         <Navigator initialRoute={{id: 'welcome'}} renderScene={this.navigatorRenderScene} configureScene = {this.navigatorConfigureScene}/>
+      )
+   }
+}
+
+class oxxodueno extends Component {
+  render() {
+    return (
+      <LinearGradient colors={['#f22a2a','#ed6767']} style={styles.linearGradient}>
+         <Image style={{width:100,height:100}} source={require('./img/calisto.png')} />
+      </LinearGradient>
+    );
+  }
+}
+
+class Welcome extends Component{
+   constructor(props) {
+      super(props)
+   }
+   navSecond(){
+    this.props.navigator.push({
+      id: 'seleccion'
+    })
+   }
+   render(){
+      return(
+         <LinearGradient colors={['#f22a2a','#ed6767']} style={stylesWelcome.container}>
+            <Image style={stylesWelcome.description,{width:200,height:100}} source={require('./img/oxxo.png')}/>
+               <Text style={stylesWelcome.description}>
+                  Hola!
+               </Text>
+               <Text style={stylesWelcome.description}>
+                  dcscdscsdcdscdcd sdcds sdcsd sdcds sdcd sdcdsc sdc
+                  dcscdscsdcdscdcd sdcds sdcsd sdcds sdcd sdcdsc sdc
+                  dcscdscsdcdscdcd sdcds sdcsd sdcds sdcd sdcdsc sdc
+               </Text>
+               <Button onPress={this.navSecond.bind(this)}>CONTINUAR</Button>
+         </LinearGradient>
       )
    }
 }
@@ -280,7 +271,7 @@ class Categories extends Component{
         <Navigator.NavigationBar
         routeMapper={{
         LeftButton: (route, navigator, index, navState) =>
-         { return (<View><TouchableOpacity onPress={()=>1+1}><Text style={{marginTop:12,marginLeft:5}}><Icon name="long-arrow-left" size={25} color="#FFFFFF"style={{marginLeft:-3}}/></Text></TouchableOpacity></View>); },
+         { return (<TouchableOpacity onPress={()=>navigator.pop()}><Text style={{marginTop:12,marginLeft:5}}><Icon name="long-arrow-left" size={25} color="#FFFFFF"style={{marginLeft:-3}}/></Text></TouchableOpacity>); },
         RightButton: (route, navigator, index, navState) =>
           { return (<Text></Text>); },
         Title: (route, navigator, index, navState) =>
