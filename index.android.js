@@ -85,27 +85,69 @@ class MainNavigator extends Component{
          LeftButton: function(route, navigator, index, navState) {
             if(route.id=='home'){
                return (
-                  <Image style={stylesWelcome.description,{width:80,height:50,marginBottom:80}} source={require('./img/oxxo.png')}/>
+                  <TouchableOpacity onPress={() => {navigator.pop()}}>
+                    <Image style={stylesWelcome.description,{width:80,height:50,marginBottom:80}} source={require('./img/oxxo.png')}/>
+                  </TouchableOpacity>
                );
             }
             if(route.id=='categories'){
+               return (
+                  <TouchableOpacity onPress={() => {navigator.pop()}}>
+                    <Icon name="long-arrow-left" size={25} color="#FFFFFF"style={{marginLeft:4,marginTop:13}}/>
+                  </TouchableOpacity>
+               );
+            }
+            if(route.id=='encuestas'){
                return(
-                  <Text></Text>
+                 <TouchableOpacity onPress={() => {navigator.pop()}}>
+                   <Icon name="long-arrow-left" size={25} color="#FFFFFF"style={{marginLeft:4,marginTop:13}}/>
+                 </TouchableOpacity>
                )
             }
          },
 
          RightButton: function(route, navigator, index, navState) {
-            return null;
+            if(route.id == 'home'){
+              return(
+                <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:14}}>ASESOR DE TIENDA</Text>
+              );
+            }
+            if(route.id == 'comentarios'){
+              return(
+                <TouchableOpacity onPress={() => {navigator.push('categories')}}>
+                  <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:15,marginRight:8}}>FINALIZAR</Text>
+                </TouchableOpacity>
+              );
+            }
          },
 
          Title: function(route, navigator, index, navState) {
-            return null;
+            if(route.id == 'categories'){
+              return(
+                <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:15,marginLeft:10}}>REVISIONES VERTICALES</Text>
+              );
+            }
+            if(route.id == 'encuestas'){
+              return(
+                <Text style={{textAlign:'center',marginLeft:10,color:'#FFFFFF',fontWeight:'bold',marginTop:15}}>REVISIONES VERTICALES</Text>
+              );
+            }
+            if(route.id=='comentarios'||route.id=='preguntas'){
+              return(
+                <Text style={{textAlign:'center',marginLeft:40,color:'#FFFFFF',fontWeight:'bold',marginTop:15}}>SATISFACCIÓN</Text>
+              );
+            }
          }
       }
 
       return(
-         <Navigator initialRoute={{id: 'welcome'}} renderScene={this.navigatorRenderScene} configureScene = {this.navigatorConfigureScene}/>
+         <Navigator initialRoute={{id: 'welcome'}} renderScene={this.navigatorRenderScene} configureScene = {this.navigatorConfigureScene}
+         navigationBar={
+            <Navigator.NavigationBar
+            routeMapper={NavigationBarRouteMapper}
+            />
+         }
+        />
       )
    }
 }
@@ -193,19 +235,6 @@ class Home extends Component{
              </View>
           </View>
           }
-          navigationBar={
-        <Navigator.NavigationBar
-        routeMapper={{
-        LeftButton: (route, navigator, index, navState) =>
-         { return (<View><TouchableOpacity onPress={()=>1+1}><Text style={{marginTop:12,marginLeft:5}}><Icon name="long-arrow-left" size={25} color="#FFFFFF"style={{marginLeft:-3}}/></Text></TouchableOpacity></View>); },
-        RightButton: (route, navigator, index, navState) =>
-          { return (<Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:14}}>ASESOR DE TIENDA</Text>); },
-        Title: (route, navigator, index, navState) =>
-          { return (<Text></Text>); },
-        }}
-        style={{backgroundColor: 'transparent'}}
-        />
-        }
         />
       )
    }
@@ -267,19 +296,6 @@ class Categories extends Component{
              </View>
           </View>
           }
-          navigationBar={
-        <Navigator.NavigationBar
-        routeMapper={{
-        LeftButton: (route, navigator, index, navState) =>
-         { return (<TouchableOpacity onPress={()=>navigator.pop()}><Text style={{marginTop:12,marginLeft:5}}><Icon name="long-arrow-left" size={25} color="#FFFFFF"style={{marginLeft:-3}}/></Text></TouchableOpacity>); },
-        RightButton: (route, navigator, index, navState) =>
-          { return (<Text></Text>); },
-        Title: (route, navigator, index, navState) =>
-          { return (<Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:14,marginLeft:10}}>REVISIONES VERTICALES</Text>); },
-        }}
-        style={{backgroundColor: 'transparent'}}
-        />
-        }
         />
       )
    }
@@ -359,19 +375,6 @@ class Encuestas extends Component{
              </LinearGradient>
             </View>
           }
-          navigationBar={
-    <Navigator.NavigationBar
-      routeMapper={{
-        LeftButton: (route, navigator, index, navState) =>
-         { return (<View><TouchableOpacity onPress={()=>1+1}><Text style={{marginTop:12,marginLeft:5}}><Icon name="long-arrow-left" size={25} color="#FFFFFF"style={{marginLeft:-3}}/></Text></TouchableOpacity></View>); },
-        RightButton: (route, navigator, index, navState) =>
-          { return (<Text></Text>); },
-        Title: (route, navigator, index, navState) =>
-          { return (<Text style={{textAlign:'center',marginLeft:10,color:'#FFFFFF',fontWeight:'bold',marginTop:15}}>REVISIONES VERTICALES</Text>); },
-      }}
-      style={{backgroundColor: 'transparent'}}
-    />
- }
         />
       )
    }
@@ -390,9 +393,6 @@ class Preguntas extends Component{
          <Navigator renderScene={(route, navigator) =>
            <View style={{flex:10,flexDirection:'column'}}>
            <LinearGradient colors={['#f22a2a','#ed6767']} style={{flex:1,justifyContent:'center'}}>
-            <View style={{backgroundColor:'transparent'}}>
-              <Text style={{color:'#FFFFFF',fontSize:18,textAlign:'center',fontWeight:'bold'}}>SATISFACCIÓN</Text>
-            </View>
            </LinearGradient>
               <LinearGradient colors={['#ffc34d','#ffdd99']} style={{flex:9}}>
                 <View style={{flex:10,flexDirection:'column'}}>
@@ -481,19 +481,6 @@ class Comentarios extends Component{
               </LinearGradient>
              </View>
            }
-           navigationBar={
-     <Navigator.NavigationBar
-       routeMapper={{
-         LeftButton: (route, navigator, index, navState) =>
-          { return (<View><TouchableOpacity onPress={()=>1+1}><Text style={{marginTop:12,marginLeft:5}}><Icon name="long-arrow-left" size={25} color="#FFFFFF"style={{marginLeft:-3}}/></Text></TouchableOpacity></View>); },
-         RightButton: (route, navigator, index, navState) =>
-           { return (<TouchableOpacity onPress={this.navSecond.bind(this)}><View><Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:15,marginRight:8}}>FINALIZAR</Text></View></TouchableOpacity>); },
-         Title: (route, navigator, index, navState) =>
-           { return (<Text style={{textAlign:'center',marginLeft:40,color:'#FFFFFF',fontWeight:'bold',marginTop:15}}>SATISFACCIÓN</Text>); },
-       }}
-       style={{backgroundColor: 'transparent'}}
-     />
-  }
          />
       )
    }
