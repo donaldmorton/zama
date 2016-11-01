@@ -114,7 +114,7 @@ class MainNavigator extends Component{
             }
             if(route.id == 'comentarios'){
               return(
-                <TouchableOpacity onPress={() => {navigator.push('categories')}}>
+                <TouchableOpacity onPress={()=>navigator.push({id:'categories'})}>
                   <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:15,marginRight:8}}>FINALIZAR</Text>
                 </TouchableOpacity>
               );
