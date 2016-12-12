@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 import {AppRegistry,StyleSheet,Text,Image,StatusBar,Dimensions,Navigator,ListView,TouchableOpacity,TouchableHighlight,TextInput,AsyncStorage,View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -9,17 +10,28 @@ module.exports = class Comentarios extends Component{
       }
    }
 
+   componentDidMount(){
+      AsyncStorage.setItem(this.props.encuesta._id,'true',function(err,data) {
+
+      })
+   }
+
    navSecond(){
-    this.props.navigator.push({
-      id: 'home',
-      encuesta:this.props.encuesta.categoria_encuestas[0]
-    })
+      AsyncStorage.setItem(this.props.encuesta.name,'true',function(err,data) {
+         console.log(err,'error set key');
+         if(!err){
+            this.props.navigator.push({
+               id: 'home',
+               encuesta:this.props.encuesta.categoria_encuestas[0]
+            })
+         }
+      })
    }
 
    navFirst(){
-    this.props.navigator.push({
-      id: 'preguntas'
-    })
+      this.props.navigator.push({
+         id: 'home'
+      })
    }
 
    render(){

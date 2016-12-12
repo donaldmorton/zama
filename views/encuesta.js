@@ -1,5 +1,8 @@
+import React, { Component } from 'react';
 import {AppRegistry,StyleSheet,Text,Image,StatusBar,Dimensions,Navigator,ListView,TouchableOpacity,TouchableHighlight,TextInput,AsyncStorage,View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Button from '../button.js'
 
 module.exports = class Encuestas extends Component{
    constructor(props) {

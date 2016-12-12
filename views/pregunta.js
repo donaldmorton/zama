@@ -1,5 +1,8 @@
+import React, { Component } from 'react';
 import {AppRegistry,StyleSheet,Text,Image,StatusBar,Dimensions,Navigator,ListView,TouchableOpacity,TouchableHighlight,TextInput,AsyncStorage,View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
+import EncuestasBottom from '../encuestasBottom'
+import api from '../api'
 
 module.exports = class Preguntas extends Component{
    constructor(props) {
@@ -9,6 +12,7 @@ module.exports = class Preguntas extends Component{
    navSecond(value,p){
       var self=this;
       AsyncStorage.getItem('puesto',function(err,puesto) {
+
          api.track('encuestas',{
             e:self.props.encuesta.name,
             puesto:puesto.toLowerCase(),
@@ -17,6 +21,7 @@ module.exports = class Preguntas extends Component{
             index:self.props.index,
             pregunta:self.props.encuesta.preguntas[self.props.index].id
          });
+
          if(self.props.encuesta.preguntas.length>(self.props.index+1)){
             self.props.navigator.push({
                id: 'preguntas',

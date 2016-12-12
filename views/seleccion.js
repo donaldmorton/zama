@@ -1,13 +1,22 @@
+import React, { Component } from 'react';
 import {AppRegistry,StyleSheet,Text,Image,StatusBar,Dimensions,Navigator,ListView,TouchableOpacity,TouchableHighlight,TextInput,AsyncStorage,View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
+import api from '../api.js'
+import DropDown, {
+  Select,
+  Option,
+  OptionList,
+} from 'react-native-selectme';
+import Button from '../button.js'
 
 module.exports = class Seleccion extends Component{
-   constructor(props) {
-      super(props)
-      this.state = {
-         options:[]
+      constructor(props) {
+         super(props)
+         this.state = {
+            options:[]
+         }
       }
-   }
+
       _getOptionList() {
       return this.refs['OPTIONLIST'];
      }
@@ -31,8 +40,7 @@ module.exports = class Seleccion extends Component{
      }
 
      opciones(){
-         self = this;
-
+         var self = this;
          api.puestos(function(json) {
             json.map(function(puesto) {
                if(puesto){
@@ -45,7 +53,7 @@ module.exports = class Seleccion extends Component{
    render(){
       return(
          <LinearGradient colors={['#f22a2a','#ed6767']} style={stylesWelcome.container}>
-            <Image style={stylesWelcome.description,{width:200,height:100,marginBottom:80}} source={require('./img/oxxo.png')}/>
+            <Image style={stylesWelcome.description,{width:200,height:100,marginBottom:80}} source={require('../img/oxxo.png')}/>
             <Text style={stylesWelcome.description}>
                Elige tu puesto:
             </Text>
@@ -58,3 +66,32 @@ module.exports = class Seleccion extends Component{
       )
    }
 }
+
+ var stylesWelcome = StyleSheet.create({
+   description: {
+      marginBottom: 20,
+      fontSize: 18,
+      textAlign: 'left',
+      color: '#f4efef',
+      backgroundColor:'transparent'
+   },
+   select:{
+      borderWidth:0,
+      width:300,
+      marginBottom:150,
+      height:50,
+      borderRadius:4,
+      backgroundColor:'rgba(74, 10, 10, 0.4)',
+      alignItems:'center',
+      justifyContent:'center'
+   },
+   container: {
+      justifyContent: 'center',
+      flex: 1,
+      alignItems: 'center',
+      paddingLeft: 15,
+      paddingRight: 15,
+      borderRadius: 0,
+      alignItems: 'center'
+   }
+})

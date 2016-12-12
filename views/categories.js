@@ -1,5 +1,8 @@
+import React, { Component } from 'react';
 import {AppRegistry,StyleSheet,Text,Image,StatusBar,Dimensions,Navigator,ListView,TouchableOpacity,TouchableHighlight,TextInput,AsyncStorage,View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
+import api from '../api.js'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 module.exports = class Categories extends Component{
 
@@ -7,7 +10,24 @@ module.exports = class Categories extends Component{
       super(props)
       var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.state = {
-         dataSource: ds.cloneWithRows([])
+         dataSource: ds.cloneWithRows([]),
+         keys:{}
+      }
+   }
+
+   loadKeys(){
+      var self = this;
+      AsyncStorage.getAllKeys(function(err,data) {
+         self.setState({keys:data})
+      })
+   }
+
+   checkKeys(input){
+      var self = this;
+      for(key in self.state.keys){
+         if(self.state.keys[key]==input){
+            return true;
+         }
       }
    }
 
@@ -19,14 +39,15 @@ module.exports = class Categories extends Component{
    }
 
    componentWillMount(){
-      self = this;
+      this.loadKeys()
+      var self = this;
       var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       var encuestas = []
       api.encuestas(this.props.categorie.slug,function(encuestas) {
          var e = encuestas.map(function(encu){
             var d1 = new Date(encu.expiracion).getTime();
             var d2 = Date.now();
-            encu.compleated = (checkKeys(encu._id))?'true':'false';
+            encu.compleated = (self.checkKeys(encu._id))?'true':'false';
             encu.expiracion = Math.round((d1-d2)/86400000);
             return encu
          })
@@ -35,6 +56,7 @@ module.exports = class Categories extends Component{
    }
 
    renderRows(row){
+      console.log(row);
       if(row.compleated=='false'){
          return(
             <TouchableOpacity onPress={()=>{this.navSecond(row)}}>

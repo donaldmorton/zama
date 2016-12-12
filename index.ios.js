@@ -3,25 +3,39 @@
  * https://github.com/facebook/react-native
  * @flow
  */
+ import React, { Component } from 'react';
+
  import LinearGradient from 'react-native-linear-gradient'
  import Button from './button.js'
  import Icon from 'react-native-vector-icons/FontAwesome';
  import EncuestasBottom from './encuestasBottom'
 
-import React, { Component } from 'react';
+ import Seleccion from './views/seleccion'
+ import Comentario from './views/comentario'
+ import Home from './views/home'
+ import Intro from './views/intro'
+ import Pregunta from './views/pregunta'
+ import Welcome from './views/welcome'
+ import Encuestas from './views/encuesta'
+ import Categories from './views/categories'
+ import Comentarios from './views/comentario'
+
 import {
   AppRegistry,
   StyleSheet,
   Text,
   Image,
   Dimensions,
+  StatusBar,
   Navigator,
   ListView,
   TouchableOpacity,
+  AsyncStorage,
   TouchableHighlight,
   TextInput,
   View
 } from 'react-native';
+
 import DropDown, {
   Select,
   Option,
@@ -29,6 +43,13 @@ import DropDown, {
 } from 'react-native-selectme';
 
 var deviceWidth = Dimensions.get('window').width;
+var initial = 'welcome'
+
+AsyncStorage.getItem('puesto',function(err,data) {
+   if(data){
+      initial='home'
+   }
+})
 
 class MainNavigator extends Component{
 
@@ -48,15 +69,15 @@ class MainNavigator extends Component{
          case 'seleccion':
             return (<Seleccion navigator={navigator} title="Seleccion"/>);
          case 'categories':
-            return (<Categories navigator={navigator} title="Categories"/>);
+            return (<Categories categorie={route.categorie} navigator={navigator} title="Categories"/>);
          case 'home':
             return (<Home navigator={navigator} title="Home" />);
          case 'encuestas':
-            return(<Encuestas navigator={navigator} title="Encuestas"/>);
+            return(<Encuestas encuesta={route.encuesta} navigator={navigator} title="Encuestas"/>);
          case 'preguntas':
-            return(<Preguntas navigator={navigator} title="Preguntas"/>);
+            return(<Pregunta encuesta={route.encuesta} index={route.index} navigator={navigator} title="Preguntas"/>);
          case 'comentarios':
-            return(<Comentarios navigator={navigator} title="Comentarios"/>);
+            return(<Comentarios encuesta={route.encuesta} navigator={navigator} title="Comentarios"/>);
       }
    }
 
@@ -114,7 +135,7 @@ class MainNavigator extends Component{
             }
             if(route.id == 'comentarios'){
               return(
-                <TouchableOpacity onPress={()=>navigator.push({id:'categories'})}>
+                <TouchableOpacity onPress={()=>navigator.push({id:'home'})}>
                   <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:15,marginRight:8}}>FINALIZAR</Text>
                 </TouchableOpacity>
               );
@@ -124,12 +145,12 @@ class MainNavigator extends Component{
          Title: function(route, navigator, index, navState) {
             if(route.id == 'categories'){
               return(
-                <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:15,marginLeft:10}}>REVISIONES VERTICALES</Text>
+                <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:15,marginLeft:10}}>{route.categorie.name.toUpperCase()}</Text>
               );
             }
             if(route.id == 'encuestas'){
               return(
-                <Text style={{textAlign:'center',marginLeft:10,color:'#FFFFFF',fontWeight:'bold',marginTop:15}}>REVISIONES VERTICALES</Text>
+                <Text style={{textAlign:'center',marginLeft:10,color:'#FFFFFF',fontWeight:'bold',marginTop:15}}>{route.encuesta.name.toUpperCase()}</Text>
               );
             }
             if(route.id=='comentarios'||route.id=='preguntas'){
@@ -141,347 +162,20 @@ class MainNavigator extends Component{
       }
 
       return(
-         <Navigator initialRoute={{id: 'welcome'}} renderScene={this.navigatorRenderScene} configureScene = {this.navigatorConfigureScene}
-         navigationBar={
-            <Navigator.NavigationBar
-            routeMapper={NavigationBarRouteMapper}
+         <View style={{flex:1}}>
+               <StatusBar
+              backgroundColor="blue"
+              barStyle="light-content"
             />
-         }
-        />
-      )
-   }
-}
+            <Navigator initialRoute={{id:initial}} renderScene={this.navigatorRenderScene} configureScene = {this.navigatorConfigureScene}
+            navigationBar={
+               <Navigator.NavigationBar
+               routeMapper={NavigationBarRouteMapper}
+               />
+            }
+           />
+        </View>
 
-class oxxodueno extends Component {
-  render() {
-    return (
-      <LinearGradient colors={['#f22a2a','#ed6767']} style={styles.linearGradient}>
-         <Image style={{width:100,height:100}} source={require('./img/calisto.png')} />
-      </LinearGradient>
-    );
-  }
-}
-
-class Welcome extends Component{
-   constructor(props) {
-      super(props)
-   }
-   navSecond(){
-    this.props.navigator.push({
-      id: 'seleccion'
-    })
-   }
-   render(){
-      return(
-         <LinearGradient colors={['#f22a2a','#ed6767']} style={stylesWelcome.container}>
-            <Image style={stylesWelcome.description,{width:200,height:100}} source={require('./img/oxxo.png')}/>
-               <Text style={stylesWelcome.description}>
-                  Hola!
-               </Text>
-               <Text style={stylesWelcome.description}>
-                  dcscdscsdcdscdcd sdcds sdcsd sdcds sdcd sdcdsc sdc
-                  dcscdscsdcdscdcd sdcds sdcsd sdcds sdcd sdcdsc sdc
-                  dcscdscsdcdscdcd sdcds sdcsd sdcds sdcd sdcdsc sdc
-               </Text>
-               <Button onPress={this.navSecond.bind(this)}>CONTINUAR</Button>
-         </LinearGradient>
-      )
-   }
-}
-
-class Home extends Component{
-
-   constructor(props) {
-      super(props)
-      var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-      this.state = {
-         dataSource: ds.cloneWithRows(['Revisiones Verticales', 'Competencias y Valores'])
-      }
-   }
-     navSecond(){
-       this.props.navigator.push({
-         id: 'categories'
-       })
-     }
-
-   renderRows(row){
-      return(
-         <TouchableOpacity onPress={()=>this.navSecond()}>
-            <View style={{ elevation:2,shadowColor: "#000000",shadowOpacity: 0.1,shadowRadius: 2,shadowOffset: {height: 1,width: 0},flexDirection:'row',justifyContent:'center',alignItems:'center',height:140,marginBottom:10,padding:10,backgroundColor:'rgb(255, 255, 255)',borderRadius:0}}>
-               <Text style={{fontSize:30,flex:2,fontWeight:'800',color:'rgb(255, 215, 73)'}}>
-                  {row}
-               </Text>
-               <View style={{backgroundColor:'rgb(255, 215, 73)',height:100,width:2}}>
-
-               </View>
-               <Text style={{fontSize:50,textAlign:'center',fontWeight:'800',flex:1,color:'rgb(255, 109, 83)'}}>
-                  3/4
-               </Text>
-            </View>
-         </TouchableOpacity>
-      )
-   }
-
-   render(){
-      return(
-        <Navigator renderScene={(route, navigator) =>
-          <View style={{flex:10,flexDirection:'column'}}>
-          <LinearGradient colors={['#f22a2a','#ed6767']} style={{flex:1}}>
-
-          </LinearGradient>
-             <View style={{flex:9,backgroundColor:'#fafafa'}}>
-                <Text style={{color:'#f22a2a',marginLeft:8,marginTop:5,marginBottom:8,fontWeight:'bold'}}>Categorías</Text>
-                <ListView style={{flex:1,flexDirection:'column'}}  dataSource={this.state.dataSource} renderRow = {this.renderRows.bind(this)}/>
-             </View>
-          </View>
-          }
-        />
-      )
-   }
-}
-
-class Categories extends Component{
-
-   constructor(props) {
-      super(props)
-      var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-      this.state = {
-         dataSource: ds.cloneWithRows(['Satisfaccion', 'Contenido','Jefe Subordinado'])
-      }
-   }
-   navSecond(){
-     this.props.navigator.push({
-       id: 'encuestas'
-     })
-   }
-   renderRows(row){
-      return(
-        <TouchableOpacity onPress={this.navSecond.bind(this)}>
-         <View>
-            <View style={{ elevation:2,shadowColor: "#000000",shadowOpacity: 0.1,shadowRadius: 2,shadowOffset: {height: 1,width: 0},flexDirection:'row',justifyContent:'center',alignItems:'center',height:110,marginBottom:10,padding:10,backgroundColor:'rgb(255, 255, 255)',borderRadius:0}}>
-               <View style={{flex:1}}>
-                  <Icon name="smile-o" size={50} color="rgb(255, 215, 73)" />
-               </View>
-               <View style={{flex:4}}>
-                  <Text style={{fontSize:25,fontWeight:'800',color:'rgb(255, 215, 73)'}}>
-                     {row}
-                  </Text>
-                  <Text style={{color:'rgb(255, 215, 73)'}}>11 Preguntas</Text>
-               </View>
-               <View style={{backgroundColor:'rgb(255, 215, 73)',height:70,width:2}}>
-
-               </View>
-               <View style={{flexDirection:'column',flex:2,alignItems:'center'}}>
-                  <Icon name="clock-o" size={50} color="rgb(255, 109, 83)" />
-                  <Text style={{fontSize:12,textAlign:'center',fontWeight:'800',flex:1,color:'rgb(255, 109, 83)'}}>
-                     3 Dias
-                  </Text>
-               </View>
-            </View>
-         </View>
-         </TouchableOpacity>
-      )
-   }
-
-   render(){
-      return(
-        <Navigator renderScene={(route, navigator) =>
-          <View style={{flex:10,flexDirection:'column'}}>
-          <LinearGradient colors={['#f22a2a','#ed6767']} style={{flex:1}}>
-
-          </LinearGradient>
-             <View style={{flex:9,backgroundColor:'#fafafa'}}>
-                <Text style={{color:'#f22a2a',marginLeft:8,marginTop:5,marginBottom:8,fontWeight:'bold'}}>Encuestas</Text>
-                <ListView style={{marginTop:3,flex:1,flexDirection:'column'}}  dataSource={this.state.dataSource} renderRow = {this.renderRows.bind(this)}/>
-             </View>
-          </View>
-          }
-        />
-      )
-   }
-}
-
-class Seleccion extends Component{
-   constructor(props) {
-      super(props)
-   }
-    state = {
-      canada: ''
-    }
-     _getOptionList() {
-    return this.refs['OPTIONLIST'];
-  }
-    _canada(province) {
-  }
-
-     navSecond(){
-       this.props.navigator.push({
-         id: 'home'
-       })
-     }
-
-   render(){
-      return(
-         <LinearGradient colors={['#f22a2a','#ed6767']} style={stylesWelcome.container}>
-            <Image style={stylesWelcome.description,{width:200,height:100,marginBottom:80}} source={require('./img/oxxo.png')}/>
-            <Text style={stylesWelcome.description}>
-               Elige tu puesto:
-            </Text>
-            <Select style={stylesWelcome.select} width={250} ref="SELECT1" optionListRef={this._getOptionList.bind(this)} defaultValue="Asesor de tienda" onSelect={this._canada.bind(this)}>
-               <Option value = {{id : "alberta"}}>Alberta</Option>
-               <Option>British Columbia</Option>
-               <Option>Manitoba</Option>
-               <Option>Manitoba</Option>
-               <Option>Manitoba</Option>
-               <Option>New Brunswick</Option>
-               <Option>Newfoundland and Labrador</Option>
-            </Select>
-            <OptionList ref="OPTIONLIST" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
-            <Button onPress={this.navSecond.bind(this)}>CONTINUAR</Button>
-         </LinearGradient>
-      )
-   }
-}
-class Encuestas extends Component{
-   constructor(props) {
-      super(props)
-   }
-   navSecond(){
-    this.props.navigator.push({
-      id: 'preguntas'
-    })
-   }
-   render(){
-      return(
-        <Navigator renderScene={(route, navigator) =>
-          <View style={{flex:10,flexDirection:'column'}}>
-          <LinearGradient colors={['#f22a2a','#ed6767']} style={{flex:1}}>
-
-          </LinearGradient>
-             <LinearGradient colors={['#ffc34d','#ffdd99']} style={{flex:9,alignItems:'center'}}>
-             <View style={{marginTop:20}}>
-                <Icon name="smile-o" size={100} color="rgb(255, 255, 255)" />
-             </View>
-             <Text style={{fontSize:28,color:'#ffffff'}}>
-                Satisfacción
-             </Text>
-             <Text style={{color:'#b37700',marginBottom:20}}>
-                11 Preguntas
-             </Text>
-             <Text style={{marginBottom: 20,fontSize: 18,textAlign: 'justify',color: '#f4efef',}}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-             </Text>
-             <Button onPress={this.navSecond.bind(this)}>COMENZAR</Button>
-             </LinearGradient>
-            </View>
-          }
-        />
-      )
-   }
-}
-class Preguntas extends Component{
-   constructor(props) {
-      super(props)
-   }
-   navSecond(){
-    this.props.navigator.push({
-      id: 'comentarios'
-    })
-   }
-   render(){
-      return(
-         <Navigator renderScene={(route, navigator) =>
-           <View style={{flex:10,flexDirection:'column'}}>
-           <LinearGradient colors={['#f22a2a','#ed6767']} style={{flex:1,justifyContent:'center'}}>
-           </LinearGradient>
-              <LinearGradient colors={['#ffc34d','#ffdd99']} style={{flex:9}}>
-                <View style={{flex:10,flexDirection:'column'}}>
-                <View style={{backgroundColor:'#FFFFFF',margin:15,borderRadius:4,flex:9,elevation:3}}>
-                  <Text style={{color:'#FFC34D',textAlign:'center',fontSize:24,marginTop:15,fontWeight:'bold'}}>Los Instructores:</Text>
-                  <Text style={{fontSize:16,color:'#000000',textAlign:'center',marginTop:23,marginBottom:15}}>1.Mostraron comprensión del tema</Text>
-                  <View style={{backgroundColor:'#d80e0e',marginTop:20}}>
-                    <TouchableOpacity onPress={this.navSecond.bind(this)}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
-                      <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>Muy de acuerdo</Text>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{backgroundColor:'#d80e0e'}}>
-                    <TouchableOpacity onPress={this.navSecond.bind(this)}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
-                      <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>De acuerdo</Text>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{backgroundColor:'#d80e0e'}}>
-                    <TouchableOpacity onPress={this.navSecond.bind(this)}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
-                      <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>En desacuerdo</Text>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{backgroundColor:'#d80e0e'}}>
-                    <TouchableOpacity onPress={this.navSecond.bind(this)}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
-                      <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>Muy desacuerdo</Text>
-                    </TouchableOpacity>
-                  </View>
-                  <EncuestasBottom/>
-                </View>
-                <View style={{backgroundColor:'transparent',flex:1,alignItems:'center'}}>
-                  <Text style={{color:'#FFFFFF',textAlign:'center',fontWeight:'bold',fontSize:22}}>1/11</Text>
-                </View>
-                </View>
-              </LinearGradient>
-             </View>
-           }
-         />
-      )
-   }
-}
-class Comentarios extends Component{
-   constructor(props) {
-      super(props)
-      this.state={
-        text:''
-      }
-   }
-   navSecond(){
-    this.props.navigator.push({
-      id: 'categories'
-    })
-   }
-   navFirst(){
-    this.props.navigator.push({
-      id: 'preguntas'
-    })
-   }
-   render(){
-      return(
-         <Navigator renderScene={(route, navigator) =>
-           <View style={{flex:10,flexDirection:'column'}}>
-           <LinearGradient colors={['#f22a2a','#ed6767']} style={{flex:1,flexDirection:'row',justifyContent:'center'}}>
-
-           </LinearGradient>
-              <LinearGradient colors={['#ffc34d','#ffdd99']} style={{flex:9}}>
-                <View style={{flex:10,flexDirection:'column'}}>
-                <View style={{backgroundColor:'#FFFFFF',margin:15,borderRadius:4,flex:9,elevation:3}}>
-                  <View style={{flex:10,flexDirection:'column'}}>
-                    <View style={{flex:2,backgroundColor:'transparent'}}>
-                      <Text style={{color:'#FFC34D',textAlign:'center',fontSize:24,marginTop:15,fontWeight:'bold'}}>Comentarios adicionales:</Text>
-                    </View>
-                    <View style={{backgroundColor:'#e6e6e6',marginLeft:12,marginRight:12,marginBottom:15,flex:8}}>
-                      <TextInput
-                        style={{backgroundColor:'transparent',flex:1,textAlignVertical:'top'}}
-                        multiline = {true}
-                        placeholder={'Escribe aquí...'}
-                        onChangeText={(text) => this.setState({text})}
-                        value={this.state.text}
-                      />
-                    </View>
-                  </View>
-                </View>
-                <View style={{backgroundColor:'transparent',flex:1,alignItems:'center'}}>
-                  <Text style={{color:'#FFFFFF',textAlign:'center',fontWeight:'bold',fontSize:22}}>11/11</Text>
-                </View>
-                </View>
-              </LinearGradient>
-             </View>
-           }
-         />
       )
    }
 }
