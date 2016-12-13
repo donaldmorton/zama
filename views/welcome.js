@@ -11,11 +11,6 @@ module.exports = class Welcome extends React.Component{
          description:'',
          saludo:''
       }
-      AsyncStorage.getItem('puesto',function(err,data) {
-         if(data){
-            this.props.navigator.push({id:'home'})
-         }
-      })
    }
 
    navSecond(){
@@ -28,8 +23,14 @@ module.exports = class Welcome extends React.Component{
       var self = this;
       var categorias = {};
 
-      api.intro(function(intro) {
+      api.intro(function(intro){
          self.setState({description:intro.intro,saludo:intro.saludo});
+      })
+
+      AsyncStorage.getItem('puesto',function(err,data) {
+         if(data){
+            self.props.navigator.push({id:'home'})
+         }
       })
    }
 
