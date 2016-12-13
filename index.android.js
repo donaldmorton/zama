@@ -103,6 +103,9 @@ class MainNavigator extends Component{
    }
 
    render(){
+            if(!puesto){
+               puesto = ' '
+            }
       var NavigationBarRouteMapper = {
 
          LeftButton: function(route, navigator, index, navState) {
