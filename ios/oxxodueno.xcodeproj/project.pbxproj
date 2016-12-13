@@ -433,7 +433,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = QSG9T42QBU;
+						DevelopmentTeam = 2BZVHA6CW9;
 					};
 				};
 			};
@@ -716,7 +716,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = QSG9T42QBU;
+				DEVELOPMENT_TEAM = 2BZVHA6CW9;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -731,6 +731,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.protocol.oxxodueno;
 				PRODUCT_NAME = oxxodueno;
 			};
 			name = Debug;
@@ -739,7 +740,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = QSG9T42QBU;
+				DEVELOPMENT_TEAM = 2BZVHA6CW9;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -754,6 +755,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.protocol.oxxodueno;
 				PRODUCT_NAME = oxxodueno;
 			};
 			name = Release;
