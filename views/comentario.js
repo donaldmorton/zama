@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {AppRegistry,StyleSheet,Text,Image,StatusBar,Dimensions,Navigator,ListView,TouchableOpacity,TouchableHighlight,TextInput,AsyncStorage,View} from 'react-native';
+import {AppRegistry,StyleSheet,Text,Image,StatusBar,TouchableWithoutFeedback,Dimensions,Navigator,ListView,TouchableOpacity,TouchableHighlight,TextInput,AsyncStorage,View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
+const dismissKeyboard = require('dismissKeyboard')
 
 module.exports = class Comentarios extends Component{
    constructor(props) {
@@ -37,7 +38,8 @@ module.exports = class Comentarios extends Component{
    render(){
       return(
          <Navigator renderScene={(route, navigator) =>
-           <View style={{flex:10,flexDirection:'column'}}>
+            <TouchableWithoutFeedback onPress={()=> dismissKeyboard()}>
+            <View style={{flex:10,flexDirection:'column'}}>
               <LinearGradient colors={['#f22a2a','#ed6767']} style={{flex:1,flexDirection:'row',justifyContent:'center'}}></LinearGradient>
               <LinearGradient colors={['#ffc34d','#ffdd99']} style={{flex:9}}>
                 <View style={{flex:10,flexDirection:'column'}}>
@@ -62,6 +64,7 @@ module.exports = class Comentarios extends Component{
                 </View>
               </LinearGradient>
              </View>
+             </TouchableWithoutFeedback>
            }
          />
       )
