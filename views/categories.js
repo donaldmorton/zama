@@ -63,10 +63,10 @@ module.exports = class Categories extends Component{
                <View>
                   <View style={{ elevation:2,shadowColor: "#000000",shadowOpacity: 0.1,shadowRadius: 2,shadowOffset: {height: 1,width: 0},flexDirection:'row',justifyContent:'center',alignItems:'center',height:110,marginBottom:10,padding:10,backgroundColor:'rgb(255, 255, 255)',borderRadius:0}}>
                      <View style={{flex:1}}>
-                        <Icon name={row.icono} size={50} color="rgb(255, 215, 73)"/>
+                        <Icon name={row.icono} size={40} color="rgb(255, 215, 73)"/>
                      </View>
                      <View style={{flex:4}}>
-                        <Text style={{fontSize:25,fontWeight:'800',color:'rgb(255, 215, 73)'}}>
+                        <Text style={{fontSize:22,fontWeight:'800',color:'rgb(255, 215, 73)'}}>
                            {row.name}
                         </Text>
                         <Text style={{color:'rgb(255, 215, 73)'}}>{row.preguntas.length} Preguntas {row.compleated}</Text>
@@ -89,10 +89,10 @@ module.exports = class Categories extends Component{
             <View>
                <View style={{ elevation:2,shadowColor: "#000000",shadowOpacity: 0.1,shadowRadius: 2,shadowOffset: {height: 1,width: 0},flexDirection:'row',justifyContent:'center',alignItems:'center',height:110,marginBottom:10,padding:10,backgroundColor:'rgb(255, 255, 255)',borderRadius:0}}>
                <View style={{flex:1}}>
-               <Icon name={row.icono} size={50} color="rgb(255, 215, 73)"/>
+               <Icon name={row.icono} size={40} color="rgb(255, 215, 73)"/>
                </View>
                <View style={{flex:4}}>
-               <Text style={{fontSize:25,fontWeight:'800',color:'rgb(255, 215, 73)'}}>
+               <Text style={{fontSize:22,fontWeight:'800',color:'rgb(255, 215, 73)'}}>
                {row.name}
                </Text>
                <Text style={{color:'rgb(255, 215, 73)'}}>{row.preguntas.length} Preguntas </Text>
