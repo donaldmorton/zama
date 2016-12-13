@@ -11,8 +11,9 @@ module.exports = class Preguntas extends Component{
 
    navSecond(value,p){
       var self=this;
+      console.log('ENTRO TRACK');
       AsyncStorage.getItem('puesto',function(err,puesto) {
-
+        console.log('ENTRO ITEM',puesto);
          api.track('encuestas',{
             e:self.props.encuesta.name,
             puesto:puesto.toLowerCase(),
