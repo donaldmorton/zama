@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {AppRegistry,StyleSheet,Text,Image,StatusBar,TouchableWithoutFeedback,Dimensions,Navigator,ListView,TouchableOpacity,TouchableHighlight,TextInput,AsyncStorage,View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
 const dismissKeyboard = require('dismissKeyboard')
+import api from '../api'
 
 module.exports = class Comentarios extends Component{
    constructor(props) {
@@ -17,15 +18,22 @@ module.exports = class Comentarios extends Component{
       })
    }
 
+
    navSecond(){
-      AsyncStorage.setItem(this.props.encuesta.name,'true',function(err,data) {
-         console.log(err,'error set key');
-         if(!err){
-            this.props.navigator.push({
-               id: 'home',
-               encuesta:this.props.encuesta.categoria_encuestas[0]
-            })
-         }
+      var self=this;
+      console.log('ENTRO TRACK');
+      AsyncStorage.getItem('puesto',function(err,puesto) {
+        console.log('ENTRO ITEM',puesto);
+         api.comment('encuestas',{
+            e:self.props.encuesta.name,
+            puesto:puesto.toLowerCase(),
+            iid:self.props.encuesta.id_interno,
+            r:self.state.text,
+         });
+         self.props.navigator.push({
+            id: 'home',
+            puesto:puesto,
+         });
       })
    }
 
@@ -53,11 +61,16 @@ module.exports = class Comentarios extends Component{
                         style={{backgroundColor:'transparent',flex:1,textAlignVertical:'top'}}
                         multiline = {true}
                         placeholder={'Escribe aquí...'}
-                        onChangeText={(text) => this.setState({text})}
+                        onChangeText={(text) => this.setState({text:text})}
                         value={this.state.text}
                       />
                     </View>
                   </View>
+                </View>
+                <View style={{margin:15,padding:5,borderRadius:10,backgroundColor:'#f22a2a'}}>
+                <TouchableOpacity onPress={()=>{this.navSecond(1)}}style={{borderWidth:0,borderColor:'#f45757',borderRadius:10,alignItems:'center'}}>
+                   <Text style={{color:'#FFFFFF',fontSize:26,fontWeight:'bold',borderRadius:10}}>Finalizar</Text>
+                </TouchableOpacity>
                 </View>
                 <View style={{backgroundColor:'transparent',flex:1,alignItems:'center'}}>
                 </View>

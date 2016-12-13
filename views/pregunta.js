@@ -92,7 +92,7 @@ module.exports = class Preguntas extends Component{
                 <View style={{flex:10,flexDirection:'column'}}>
                 <View style={{backgroundColor:'#FFFFFF',margin:15,borderRadius:4,flex:9,elevation:3}}>
                   <Text style={{color:'#FFC34D',textAlign:'center',fontSize:24,marginTop:15,fontWeight:'bold'}}>{this.props.encuesta.preguntas[this.props.index].bloque}:</Text>
-                  <Text style={{fontSize:16,color:'#000000',textAlign:'center',marginTop:23,marginBottom:15}}>{this.props.index+1}. {this.props.encuesta.preguntas[this.props.index].texto}</Text>
+                  <Text style={{padding:5,fontSize:16,color:'#000000',textAlign:'center',marginTop:23,marginBottom:15}}>{this.props.index+1}. {this.props.encuesta.preguntas[this.props.index].texto}</Text>
                   {this.tipoPregunta()}
                 </View>
                 <View style={{backgroundColor:'transparent',flex:1,alignItems:'center'}}>

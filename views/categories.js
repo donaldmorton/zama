@@ -69,7 +69,7 @@ module.exports = class Categories extends Component{
                         <Text style={{fontSize:22,fontWeight:'800',color:'rgb(255, 215, 73)'}}>
                            {row.name}
                         </Text>
-                        <Text style={{color:'rgb(255, 215, 73)'}}>{row.preguntas.length} Preguntas {row.compleated}</Text>
+                        <Text style={{color:'rgb(255, 215, 73)'}}>{row.preguntas.length} Preguntas</Text>
                      </View>
                      <View style={{backgroundColor:'rgb(255, 215, 73)',height:70,width:2}}>
 

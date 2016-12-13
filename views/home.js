@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {AppRegistry,StyleSheet,Text,Image,StatusBar,Dimensions,Navigator,ListView,TouchableOpacity,TouchableHighlight,TextInput,AsyncStorage,View} from 'react-native';
+import {AppRegistry,RefreshControl,StyleSheet,Text,Image,StatusBar,Dimensions,Navigator,ListView,TouchableOpacity,TouchableHighlight,TextInput,AsyncStorage,View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
 import api from '../api.js'
 
@@ -27,6 +27,11 @@ module.exports = class Home extends Component{
          id: 'categories',
          categorie:categorie
       })
+   }
+
+   onRefresh(){
+      this.componentDidMount()
+      this.setState({refreshing:false})
    }
 
    componentDidMount(){
@@ -85,7 +90,12 @@ module.exports = class Home extends Component{
             </LinearGradient>
             <View style={{flex:9,backgroundColor:'#fafafa'}}>
             <Text style={{color:'#f22a2a',marginLeft:8,marginTop:5,marginBottom:8,fontWeight:'bold'}}>Categorías</Text>
-            <ListView style={{flex:1,flexDirection:'column'}}  dataSource={this.state.dataSource} renderRow ={this.renderRows.bind(this)}/>
+            <ListView refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.onRefresh.bind(this)}
+          />
+        } style={{flex:1,flexDirection:'column'}}  dataSource={this.state.dataSource} renderRow ={this.renderRows.bind(this)}/>
             </View>
             </View>
          )

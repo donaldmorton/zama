@@ -1,5 +1,4 @@
 import {AsyncStorage} from 'react-native';
-
 module.exports = {
    track:function(encuesta,data) {
       console.log(data,'SEND DATA');

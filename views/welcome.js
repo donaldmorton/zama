@@ -29,7 +29,7 @@ module.exports = class Welcome extends React.Component{
 
       AsyncStorage.getItem('puesto',function(err,data) {
          if(data){
-            self.props.navigator.push({id:'home'})
+            self.props.navigator.push({id:'home',puesto:data})
          }
       })
    }
