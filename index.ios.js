@@ -44,7 +44,7 @@ import DropDown, {
 
 var deviceWidth = Dimensions.get('window').width;
 var initial = 'welcome'
-var puesto = ''
+var puesto = 'Puesto'
 
 AsyncStorage.getItem('puesto',function(err,data) {
    if(data){
@@ -132,7 +132,7 @@ class MainNavigator extends Component{
          RightButton: function(route, navigator, index, navState) {
             if(route.id == 'home'){
                return(
-                  <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:14}}>{puesto.toUpperCase()}</Text>
+                  <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:14}}>{puesto.toUpperCase()||''}</Text>
                );
             }
             if(route.id == 'comentarios'){
@@ -147,9 +147,7 @@ class MainNavigator extends Component{
          Title: function(route, navigator, index, navState) {
             if(route.id == 'categories'){
               return(
-                <View style={{padding:20,marginTop:15,marginLeft:15}}>
-                   <Text style={{color:'#FFFFFF',fontWeight:'bold'}}>{route.categorie.name.toUpperCase()}</Text>
-                </View>
+               <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:15,marginLeft:10}}>{route.categorie.name.toUpperCase()}</Text>
               );
             }
             if(route.id == 'encuestas'){
