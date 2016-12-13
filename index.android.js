@@ -44,11 +44,13 @@ import DropDown, {
 
 var deviceWidth = Dimensions.get('window').width;
 var initial = 'welcome'
+var puesto = 'Puesto'
 
 AsyncStorage.getItem('puesto',function(err,data) {
    if(data){
       initial='home'
    }
+   puesto = data
 })
 
 class MainNavigator extends Component{
@@ -127,23 +129,23 @@ class MainNavigator extends Component{
 
          RightButton: function(route, navigator, index, navState) {
             if(route.id == 'home'){
-              return(
-                <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:14}}>ASESOR DE TIENDA</Text>
-              );
+               return(
+                  <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:14}}>{puesto.toUpperCase()||''}</Text>
+               );
             }
             if(route.id == 'comentarios'){
-              return(
-                <TouchableOpacity onPress={()=>navigator.push({id:'home'})}>
-                  <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:15,marginRight:8}}>FINALIZAR</Text>
-                </TouchableOpacity>
-              );
+               return(
+                  <TouchableOpacity onPress={()=>navigator.push({id:'home'})}>
+                     <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:15,marginRight:8}}>FINALIZAR</Text>
+                  </TouchableOpacity>
+               );
             }
          },
 
          Title: function(route, navigator, index, navState) {
             if(route.id == 'categories'){
               return(
-                <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:15,marginLeft:10}}>{route.categorie.name.toUpperCase()}</Text>
+               <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:15,marginLeft:10}}>{route.categorie.name.toUpperCase()}</Text>
               );
             }
             if(route.id == 'encuestas'){
