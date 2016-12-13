@@ -68,7 +68,6 @@ module.exports = class Preguntas extends Component{
                       <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>Muy desacuerdo</Text>
                     </TouchableOpacity>
                   </View>
-                  <EncuestasBottom/>
                 </View>
                 <View style={{backgroundColor:'transparent',flex:1,alignItems:'center'}}>
                   <Text style={{color:'#FFFFFF',textAlign:'center',fontWeight:'bold',fontSize:22}}>{this.props.index+1}/{this.props.encuesta.preguntas.length}</Text>
