@@ -21,10 +21,6 @@ public class MainActivity extends ReactActivity {
         return "oxxodueno";
     }
     //...
-    @Override
-    protected boolean getUseDeveloperSupport() {
-        return BuildConfig.DEBUG;
-    }
 
 };
 

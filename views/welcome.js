@@ -43,7 +43,7 @@ module.exports = class Welcome extends React.Component{
                <Text style={stylesWelcome.description}>
                   {this.state.description}
                </Text>
-               <Button onPress={this.navSecond.bind(this)}>CONTINUAR</Button>
+               <Button onPress={this.navSecond.bind(this)}style={{paddingRight:10}}>CONTINUAR</Button>
          </LinearGradient>
       )
    }
@@ -71,8 +71,8 @@ module.exports = class Welcome extends React.Component{
       justifyContent: 'center',
       flex: 1,
       alignItems: 'center',
-      paddingLeft: 15,
-      paddingRight: 15,
+      paddingLeft: 9,
+      paddingRight: 5,
       borderRadius: 0,
       alignItems: 'center'
    }
