@@ -61,7 +61,7 @@ module.exports = class Seleccion extends Component{
                {this.state.options}
             </Select>
             <OptionList ref="OPTIONLIST" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
-            <Button onPress={this.navSecond.bind(this)}>CONTINUAR</Button>
+            <Button onPress={this.navSecond.bind(this)}style={{paddingRight:10}}>CONTINUAR</Button>
          </LinearGradient>
       )
    }
@@ -78,7 +78,7 @@ module.exports = class Seleccion extends Component{
    select:{
       borderWidth:0,
       width:300,
-      marginBottom:150,
+      marginBottom:50,
       height:50,
       borderRadius:4,
       backgroundColor:'rgba(74, 10, 10, 0.4)',
@@ -89,8 +89,8 @@ module.exports = class Seleccion extends Component{
       justifyContent: 'center',
       flex: 1,
       alignItems: 'center',
-      paddingLeft: 15,
-      paddingRight: 15,
+      paddingLeft: 9,
+      paddingRight: 10,
       borderRadius: 0,
       alignItems: 'center'
    }

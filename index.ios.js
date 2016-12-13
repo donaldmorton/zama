@@ -108,9 +108,7 @@ class MainNavigator extends Component{
          LeftButton: function(route, navigator, index, navState) {
             if(route.id=='home'){
                return (
-                  <TouchableOpacity onPress={() => {navigator.pop()}}>
                     <Image style={stylesWelcome.description,{width:80,height:50,marginBottom:80}} source={require('./img/oxxo.png')}/>
-                  </TouchableOpacity>
                );
             }
             if(route.id=='categories'){
@@ -166,7 +164,7 @@ class MainNavigator extends Component{
       return(
          <View style={{flex:1}}>
                <StatusBar
-              backgroundColor="blue"
+              backgroundColor="#f22a2a"
               barStyle="light-content"
             />
             <Navigator initialRoute={{id:initial}} renderScene={this.navigatorRenderScene} configureScene = {this.navigatorConfigureScene}
