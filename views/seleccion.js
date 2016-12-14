@@ -13,7 +13,8 @@ module.exports = class Seleccion extends Component{
       constructor(props) {
          super(props)
          this.state = {
-            options:[]
+            options:[],
+            puestoCheck:''
          }
       }
 
@@ -22,10 +23,23 @@ module.exports = class Seleccion extends Component{
      }
 
       _canada(province) {
+        var self=this;
+        AsyncStorage.getItem('puesto',function(err,puesto) {
+           self.setState({puestoCheck:puesto})
+           console.log(self.state.puestoCheck);
+        })
          this.setState({selected:province})
      }
 
      navSecond(){
+       console.log(this.state.puestoCheck,this.state.selected);
+       if(this.state.puestoCheck != this.state.selected){
+         AsyncStorage.clear(function(err){
+           if(err){
+             console.log(err);
+           }
+         })
+       }
         if(this.state.selected){
            AsyncStorage.setItem('puesto',this.state.selected)
            this.props.navigator.push({
