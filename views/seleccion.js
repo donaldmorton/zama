@@ -33,13 +33,11 @@ module.exports = class Seleccion extends Component{
 
      navSecond(){
        console.log(this.state.puestoCheck,this.state.selected);
-       if(this.state.puestoCheck != this.state.selected){
          AsyncStorage.clear(function(err){
            if(err){
              console.log(err);
            }
          })
-       }
         if(this.state.selected){
            AsyncStorage.setItem('puesto',this.state.selected)
            this.props.navigator.push({
