@@ -22,6 +22,14 @@ module.exports = class Comentarios extends Component{
    navSecond(){
       var self=this;
       console.log('ENTRO TRACK');
+      AsyncStorage.getItem('plaza',function(err,plaza){
+        self.setState({plaza:plaza})
+        console.log(self.state.plaza);
+      })
+      AsyncStorage.getItem('distrito',function(err,distrito){
+        self.setState({distrito:distrito})
+        console.log(self.state.distrito);
+      })
       AsyncStorage.getItem('puesto',function(err,puesto) {
         console.log('ENTRO ITEM',puesto);
          api.comment('encuestas',{
@@ -29,10 +37,14 @@ module.exports = class Comentarios extends Component{
             puesto:puesto.toLowerCase(),
             iid:self.props.encuesta.id_interno,
             r:self.state.text,
+            plaza:self.state.plaza,
+            distrito:self.state.distrito,
          });
          self.props.navigator.push({
             id: 'home',
             puesto:puesto,
+            distrito:self.state.distrito,
+            plaza:self.state.plaza,
          });
       })
    }
