@@ -21,26 +21,37 @@ module.exports = class Seleccion extends Component{
       _getOptionList() {
       return this.refs['OPTIONLIST'];
      }
+     _getOptionList2() {
+     return this.refs['OPTIONLIST2'];
+    }
+    _getOptionList3() {
+    return this.refs['OPTIONLIST3'];
+   }
 
       _canada(province) {
-        var self=this;
-        AsyncStorage.getItem('puesto',function(err,puesto) {
-           self.setState({puestoCheck:puesto})
-           console.log(self.state.puestoCheck);
-        })
          this.setState({selected:province})
      }
+     _mexico(plaza) {
+        this.setState({plaza:plaza})
+    }
+    _eua(distrito) {
+       this.setState({distrito:distrito})
+   }
 
      navSecond(){
-       console.log(this.state.puestoCheck,this.state.selected);
+       console.log(this.state.plaza,this.state.selected,this.state.distrito);
          AsyncStorage.clear(function(err){
            if(err){
              console.log(err);
            }
          })
         if(this.state.selected){
-           AsyncStorage.setItem('puesto',this.state.selected)
+           AsyncStorage.setItem('puesto',this.state.selected);
+           AsyncStorage.setItem('plaza',this.state.plaza);
+           AsyncStorage.setItem('distrito',this.state.distrito);
            this.props.navigator.push({
+             distrito:this.state.distrito,
+             plaza:this.state.plaza,
              puesto:this.state.selected,
              id: 'home'
           })
@@ -65,14 +76,35 @@ module.exports = class Seleccion extends Component{
    render(){
       return(
          <LinearGradient colors={['#f22a2a','#ed6767']} style={stylesWelcome.container}>
-            <Image style={stylesWelcome.description,{width:200,height:100,marginBottom:80}} source={require('../img/oxxo.png')}/>
+            <Image style={stylesWelcome.description,{width:200,height:100,marginBottom:0}} source={require('../img/oxxo.png')}/>
             <Text style={stylesWelcome.description}>
                Elige tu puesto:
             </Text>
-            <Select style={stylesWelcome.select} width={250} ref="SELECT1" optionListRef={this._getOptionList.bind(this)} defaultValue="Asesor de tienda" onSelect={this._canada.bind(this)}>
+            <Select style={stylesWelcome.select} width={200} ref="SELECT1"defaultValue="Asesor de tienda"optionListRef={this._getOptionList.bind(this)} onSelect={this._canada.bind(this)}>
                {this.state.options}
             </Select>
             <OptionList ref="OPTIONLIST" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
+              <Text style={stylesWelcome.description}>
+                 ¿De qué plaza eres?
+              </Text>
+              <Select style={stylesWelcome.select} width={200} ref="SELECT2" optionListRef={this._getOptionList2.bind(this)} onSelect={this._mexico.bind(this)}>
+                 <Option>Centro</Option>
+                 <Option>Sur</Option>
+                 <Option>Saltillo</Option>
+                 <Option>Norte</Option>
+                 <Option>Oriente</Option>
+              </Select>
+              <OptionList ref="OPTIONLIST2" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
+                <Text style={stylesWelcome.description}>
+                   ¿De qué distrito eres?
+                </Text>
+                <Select style={stylesWelcome.select} width={200} ref="SELECT3" optionListRef={this._getOptionList3.bind(this)} onSelect={this._eua.bind(this)}>
+                   <Option>D1</Option>
+                   <Option>D2</Option>
+                   <Option>D3</Option>
+                   <Option>Plaza</Option>
+                </Select>
+                <OptionList ref="OPTIONLIST3" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
             <Button onPress={this.navSecond.bind(this)}style={{paddingRight:10}}>CONTINUAR</Button>
          </LinearGradient>
       )
@@ -90,7 +122,7 @@ module.exports = class Seleccion extends Component{
    select:{
       borderWidth:0,
       width:300,
-      marginBottom:50,
+      marginBottom:15,
       height:50,
       borderRadius:4,
       backgroundColor:'rgba(74, 10, 10, 0.4)',
