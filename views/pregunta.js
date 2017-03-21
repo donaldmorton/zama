@@ -12,30 +12,40 @@ module.exports = class Preguntas extends Component{
    navSecond(value,p){
       var self=this;
       console.log('ENTRO TRACK');
-      AsyncStorage.getItem('puesto',function(err,puesto) {
-        console.log('ENTRO ITEM',puesto);
-         api.track('encuestas',{
-            e:self.props.encuesta.name,
-            puesto:puesto.toLowerCase(),
-            iid:self.props.encuesta.id_interno,
-            r:value,
-            index:self.props.index,
-            pregunta:self.props.encuesta.preguntas[self.props.index].id,
-            tipo:self.props.encuesta.preguntas[self.props.index].tipo
-         });
+      AsyncStorage.getItem('plaza',function(err,plaza){
+         self.setState({plaza:plaza})
+         console.log(self.state.plaza);
+         AsyncStorage.getItem('distrito',function(err,distrito){
+            self.setState({distrito:distrito})
+            console.log(self.state.distrito);
+            AsyncStorage.getItem('puesto',function(err,puesto) {
+               console.log('ENTRO ITEM',puesto);
+               api.track('encuestas',{
+                  e:self.props.encuesta.name,
+                  puesto:puesto.toLowerCase(),
+                  plaza:self.state.plaza,
+                  distrito:self.state.distrito,
+                  iid:self.props.encuesta.id_interno,
+                  r:value,
+                  index:self.props.index,
+                  pregunta:self.props.encuesta.preguntas[self.props.index].id,
+                  tipo:self.props.encuesta.preguntas[self.props.index].tipo
+               });
 
-         if(self.props.encuesta.preguntas.length>(self.props.index+1)){
-            self.props.navigator.push({
-               id: 'preguntas',
-               encuesta:self.props.encuesta,
-               index:self.props.index+1
-            });
-         }else{
-            self.props.navigator.push({
-               id: 'comentarios',
-               encuesta:self.props.encuesta
-            });
-         }
+               if(self.props.encuesta.preguntas.length>(self.props.index+1)){
+                  self.props.navigator.push({
+                     id: 'preguntas',
+                     encuesta:self.props.encuesta,
+                     index:self.props.index+1
+                  });
+               }else{
+                  self.props.navigator.push({
+                     id: 'comentarios',
+                     encuesta:self.props.encuesta
+                  });
+               }
+            })
+         })
       })
    }
 

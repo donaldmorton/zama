@@ -3,75 +3,75 @@ import {AppRegistry,StyleSheet,Text,Image,StatusBar,Dimensions,Navigator,ListVie
 import LinearGradient from 'react-native-linear-gradient'
 import api from '../api.js'
 import DropDown, {
-  Select,
-  Option,
-  OptionList,
+   Select,
+   Option,
+   OptionList,
 } from 'react-native-selectme';
 import Button from '../button.js'
 
 module.exports = class Seleccion extends Component{
-      constructor(props) {
-         super(props)
-         this.state = {
-            options:[],
-            puestoCheck:''
-         }
+   constructor(props) {
+      super(props)
+      this.state = {
+         options:[],
+         puestoCheck:''
       }
+   }
 
-      _getOptionList() {
+   _getOptionList() {
       return this.refs['OPTIONLIST'];
-     }
-     _getOptionList2() {
-     return this.refs['OPTIONLIST2'];
-    }
-    _getOptionList3() {
-    return this.refs['OPTIONLIST3'];
+   }
+   _getOptionList2() {
+      return this.refs['OPTIONLIST2'];
+   }
+   _getOptionList3() {
+      return this.refs['OPTIONLIST3'];
    }
 
-      _canada(province) {
-         this.setState({selected:province})
-     }
-     _mexico(plaza) {
-        this.setState({plaza:plaza})
-    }
-    _eua(distrito) {
-       this.setState({distrito:distrito})
+   _canada(province) {
+      this.setState({selected:province})
+   }
+   _mexico(plaza) {
+      this.setState({plaza:plaza})
+   }
+   _eua(distrito) {
+      this.setState({distrito:distrito})
    }
 
-     navSecond(){
-       console.log(this.state.plaza,this.state.selected,this.state.distrito);
-         AsyncStorage.clear(function(err){
-           if(err){
-             console.log(err);
-           }
-         })
-        if(this.state.selected){
-           AsyncStorage.setItem('puesto',this.state.selected);
-           AsyncStorage.setItem('plaza',this.state.plaza);
-           AsyncStorage.setItem('distrito',this.state.distrito);
-           this.props.navigator.push({
-             distrito:this.state.distrito,
-             plaza:this.state.plaza,
-             puesto:this.state.selected,
-             id: 'home'
-          })
-        }
-     }
-
-     componentWillMount(){
-        this.opciones()
-     }
-
-     opciones(){
-         var self = this;
-         api.puestos(function(json) {
-            json.map(function(puesto) {
-               if(puesto){
-                  self.state.options.push(<Option>{puesto.name}</Option>)
-               }
-            })
+   navSecond(){
+      console.log(this.state.plaza,this.state.selected,this.state.distrito);
+      AsyncStorage.clear(function(err){
+         if(err){
+            console.log(err);
+         }
+      })
+      if(this.state.selected){
+         AsyncStorage.setItem('puesto',this.state.selected);
+         AsyncStorage.setItem('plaza',this.state.plaza);
+         AsyncStorage.setItem('distrito',this.state.distrito);
+         this.props.navigator.push({
+            distrito:this.state.distrito,
+            plaza:this.state.plaza,
+            puesto:this.state.selected,
+            id: 'home'
          })
       }
+   }
+
+   componentWillMount(){
+      this.opciones()
+   }
+
+   opciones(){
+      var self = this;
+      api.puestos(function(json) {
+         json.map(function(puesto) {
+            if(puesto){
+               self.state.options.push(<Option>{puesto.name}</Option>)
+            }
+         })
+      })
+   }
 
    render(){
       return(
@@ -84,34 +84,36 @@ module.exports = class Seleccion extends Component{
                {this.state.options}
             </Select>
             <OptionList ref="OPTIONLIST" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
-              <Text style={stylesWelcome.description}>
-                 ¿De qué plaza eres?
-              </Text>
-              <Select style={stylesWelcome.select} width={200} ref="SELECT2" optionListRef={this._getOptionList2.bind(this)} onSelect={this._mexico.bind(this)}>
-                 <Option>Centro</Option>
-                 <Option>Sur</Option>
-                 <Option>Saltillo</Option>
-                 <Option>Norte</Option>
-                 <Option>Oriente</Option>
-              </Select>
-              <OptionList ref="OPTIONLIST2" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
-                <Text style={stylesWelcome.description}>
-                   ¿De qué distrito eres?
-                </Text>
-                <Select style={stylesWelcome.select} width={200} ref="SELECT3" optionListRef={this._getOptionList3.bind(this)} onSelect={this._eua.bind(this)}>
-                   <Option>D1</Option>
-                   <Option>D2</Option>
-                   <Option>D3</Option>
-                   <Option>Plaza</Option>
-                </Select>
-                <OptionList ref="OPTIONLIST3" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
+            <Text style={stylesWelcome.description}>
+               ¿De qué plaza eres?
+            </Text>
+            <Select style={stylesWelcome.select} width={200} ref="SELECT2" optionListRef={this._getOptionList2.bind(this)} onSelect={this._mexico.bind(this)}>
+               <Option>Plaza</Option>
+               <Option>Centro</Option>
+               <Option>Sur</Option>
+               <Option>Saltillo</Option>
+               <Option>Norte</Option>
+               <Option>Oriente</Option>
+            </Select>
+            <OptionList ref="OPTIONLIST2" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
+            <Text style={stylesWelcome.description}>
+               ¿De qué distrito eres?
+            </Text>
+            <Select style={stylesWelcome.select} width={200} ref="SELECT3" optionListRef={this._getOptionList3.bind(this)} onSelect={this._eua.bind(this)}>
+               <Option>Distrito</Option>
+               <Option>D1</Option>
+               <Option>D2</Option>
+               <Option>D3</Option>
+               <Option>Plaza</Option>
+            </Select>
+            <OptionList ref="OPTIONLIST3" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
             <Button onPress={this.navSecond.bind(this)}style={{paddingRight:10}}>CONTINUAR</Button>
          </LinearGradient>
       )
    }
 }
 
- var stylesWelcome = StyleSheet.create({
+var stylesWelcome = StyleSheet.create({
    description: {
       marginBottom: 20,
       fontSize: 18,
