@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import {AppRegistry,StyleSheet,Text,Image,StatusBar,Dimensions,Navigator,ListView,TouchableOpacity,TouchableHighlight,TextInput,AsyncStorage,View} from 'react-native';
+import {AppRegistry,StyleSheet,Text,Image,StatusBar,Dimensions,Navigator,ListView,TouchableOpacity,TouchableHighlight,TextInput,AsyncStorage,View,TouchableWithoutFeedback} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
+import dismissKeyboard from 'dismissKeyboard'
 import EncuestasBottom from '../encuestasBottom'
 import api from '../api'
 
 module.exports = class Preguntas extends Component{
    constructor(props) {
       super(props)
+      this.state={
+        text:'',
+      }
    }
 
    navSecond(value,p){
@@ -50,9 +54,9 @@ module.exports = class Preguntas extends Component{
    }
 
    tipoPregunta(){
-      if(this.props.encuesta.preguntas[this.props.index].tipo=='1'){
-         return(
-            <View>
+     switch(this.props.encuesta.preguntas[this.props.index].tipo){
+       case '1':
+        return (<View>
             <View style={{backgroundColor:'#d80e0e',marginTop:20}}>
             <TouchableOpacity onPress={()=>{this.navSecond(1)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
             <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>Muy de acuerdo</Text>
@@ -73,10 +77,10 @@ module.exports = class Preguntas extends Component{
             <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>Muy desacuerdo</Text>
             </TouchableOpacity>
             </View>
-            </View>
-         )
-      }else{
-         return(
+            </View>)
+       break;
+       case '2':
+        return(
          <View>
          <View style={{backgroundColor:'#d80e0e',marginTop:20}}>
          <TouchableOpacity onPress={()=>{this.navSecond(1)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
@@ -89,12 +93,33 @@ module.exports = class Preguntas extends Component{
          </TouchableOpacity>
          </View>
          </View>)
-      }
+       break;
+       case '3':
+          return(
+         <View style={{backgroundColor:'#e6e6e6',marginLeft:12,marginRight:12,marginBottom:15,flex:8}}>
+            <TextInput
+              style={{backgroundColor:'transparent',flex:1,textAlignVertical:'top'}}
+              multiline = {true}
+              placeholder={'Escribe aquí...'}
+              onChangeText={(text) => this.setState({text:text})}
+              value={this.state.text}
+            />
+            <TouchableOpacity onPress={()=>{this.navSecond(this.state.text)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
+            <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>Siguiente</Text>
+            </TouchableOpacity>
+          </View>)
+       break;
+     } 
+   }
+
+   keyboarddis(){
+     dismissKeyboard();
    }
 
    render(){
       return(
          <Navigator renderScene={(route, navigator) =>
+           <TouchableWithoutFeedback onPress={this.keyboarddis.bind(this)}>
            <View style={{flex:10,flexDirection:'column'}}>
            <LinearGradient colors={['#f22a2a','#ed6767']} style={{flex:1,justifyContent:'center'}}>
            </LinearGradient>
@@ -111,6 +136,7 @@ module.exports = class Preguntas extends Component{
                 </View>
               </LinearGradient>
              </View>
+             </TouchableWithoutFeedback>
            }
          />
       )

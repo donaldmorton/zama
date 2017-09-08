@@ -76,7 +76,7 @@ module.exports = class Seleccion extends Component{
    render(){
       return(
          <LinearGradient colors={['#f22a2a','#ed6767']} style={stylesWelcome.container}>
-            <Image style={stylesWelcome.description,{width:200,height:100,marginBottom:0}} source={require('../img/oxxo.png')}/>
+            <Image style={[stylesWelcome.description,{width:200,height:100,marginBottom:0}]} source={require('../img/oxxo.png')}/>
             <Text style={stylesWelcome.description}>
                Elige tu puesto:
             </Text>
