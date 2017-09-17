@@ -53,7 +53,7 @@ module.exports = class Seleccion extends Component{
             distrito:this.state.distrito,
             plaza:this.state.plaza,
             puesto:this.state.selected,
-            id: 'home'
+            id: 'seleccion2'
          })
       }
    }

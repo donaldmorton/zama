@@ -8,9 +8,11 @@
  import LinearGradient from 'react-native-linear-gradient'
  import Button from './button.js'
  import Icon from 'react-native-vector-icons/FontAwesome';
- import EncuestasBottom from './encuestasBottom'
+ import codePush from "react-native-code-push";
 
+ import EncuestasBottom from './encuestasBottom'
  import Seleccion from './views/seleccion'
+ import Seleccion2 from './views/seleccion2'
  import Comentario from './views/comentario'
  import Home from './views/home'
  import Intro from './views/intro'
@@ -67,6 +69,8 @@ class MainNavigator extends Component{
             return (<Welcome navigator={navigator} title="Welcome"/>);
          case 'seleccion':
             return (<Seleccion navigator={navigator} title="Seleccion"/>);
+         case 'seleccion2':
+            return (<Seleccion2 navigator={navigator} title="Seleccion"/>);
          case 'categories':
             return (<Categories categorie={route.categorie} navigator={navigator} title="Categories"/>);
          case 'home':
@@ -85,6 +89,8 @@ class MainNavigator extends Component{
          case 'welcome':
             return Navigator.SceneConfigs.HorizontalSwipeJump;
          case 'seleccion':
+            return Navigator.SceneConfigs.HorizontalSwipeJump;
+         case 'seleccion2':
             return Navigator.SceneConfigs.HorizontalSwipeJump;
          case 'categories':
             return Navigator.SceneConfigs.PushFromRight;
@@ -249,5 +255,6 @@ const styles = StyleSheet.create({
       alignItems: 'center'
    }
 })
-
-   AppRegistry.registerComponent('oxxodueno', () => MainNavigator);
+  let codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME };
+   MyApp = codePush(codePushOptions)(MainNavigator);
+   AppRegistry.registerComponent('oxxodueno', () => MyApp);

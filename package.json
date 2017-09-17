@@ -8,6 +8,7 @@
   "dependencies": {
     "react": "15.3.1",
     "react-native": "0.35.0",
+    "react-native-code-push": "^5.0.0-beta",
     "react-native-dropdown": "0.0.6",
     "react-native-linear-gradient": "^1.5.12",
     "react-native-menu": "^0.20.1",
