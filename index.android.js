@@ -9,8 +9,8 @@
  import Button from './button.js'
  import Icon from 'react-native-vector-icons/FontAwesome';
  import EncuestasBottom from './encuestasBottom'
-
  import Seleccion from './views/seleccion'
+ import Seleccion2 from './views/seleccion2'
  import Comentario from './views/comentario'
  import Home from './views/home'
  import Intro from './views/intro'
@@ -67,10 +67,12 @@ class MainNavigator extends Component{
             return (<Welcome navigator={navigator} title="Welcome"/>);
          case 'seleccion':
             return (<Seleccion navigator={navigator} title="Seleccion"/>);
+         case 'seleccion2':
+            return (<Seleccion2 navigator={navigator} title="Seleccion"/>);
          case 'categories':
             return (<Categories categorie={route.categorie} navigator={navigator} title="Categories"/>);
          case 'home':
-            return (<Home navigator={navigator} title="Home" />);
+            return (<Home route={route} navigator={navigator} title="Home" />);
          case 'encuestas':
             return(<Encuestas encuesta={route.encuesta} navigator={navigator} title="Encuestas"/>);
          case 'preguntas':
@@ -86,6 +88,8 @@ class MainNavigator extends Component{
             return Navigator.SceneConfigs.HorizontalSwipeJump;
          case 'seleccion':
             return Navigator.SceneConfigs.HorizontalSwipeJump;
+         case 'seleccion2':
+            return Navigator.SceneConfigs.HorizontalSwipeJump;
          case 'categories':
             return Navigator.SceneConfigs.PushFromRight;
          case 'home':
@@ -100,9 +104,9 @@ class MainNavigator extends Component{
    }
 
    render(){
-            if(!puesto){
-               puesto = ' '
-            }
+      if(!puesto){
+         puesto = ' '
+      }
       var NavigationBarRouteMapper = {
 
          LeftButton: function(route, navigator, index, navState) {
@@ -130,9 +134,9 @@ class MainNavigator extends Component{
          RightButton: function(route, navigator, index, navState) {
             if(route.id == 'home'){
                return(
-                 <TouchableOpacity onPress={() => {navigator.replace({id:'seleccion',puestoCheck:puesto})}}>
-                   <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:14}}>{route.puesto.toUpperCase()}  </Text>
-                 </TouchableOpacity>
+                  <TouchableOpacity onPress={() => {navigator.replace({id:'seleccion',puestoCheck:puesto})}}>
+                     <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:14}}>{route.puesto.toUpperCase()}  </Text>
+                  </TouchableOpacity>
                );
             }
             if(route.id == 'comentarios'){
@@ -250,4 +254,4 @@ const styles = StyleSheet.create({
    }
 })
 
-   AppRegistry.registerComponent('oxxodueno', () => MainNavigator);
+AppRegistry.registerComponent('oxxodueno', () => MainNavigator);
