@@ -80,7 +80,7 @@ module.exports = class Seleccion extends Component{
         <Text style={stylesWelcome.description}>
           CR Tienda:
         </Text>
-        <TextInput keyboardType={'numeric'} style={stylesWelcome.select} onChangeText={(tienda) => this.setState({tienda})} value={this.state.tienda}/>
+        <TextInput style={stylesWelcome.select} onChangeText={(tienda) => this.setState({tienda})} value={this.state.tienda}/>
         <Text style={stylesWelcome.description}>
           Numero de Entrevistador:
         </Text>

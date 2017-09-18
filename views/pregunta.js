@@ -73,23 +73,28 @@ module.exports = class Preguntas extends Component{
       case '1':
       return (<View>
         <View style={{backgroundColor:'#d80e0e',marginTop:20}}>
-          <TouchableOpacity onPress={()=>{this.navSecond(1)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
-            <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>Muy de acuerdo</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{backgroundColor:'#d80e0e'}}>
-          <TouchableOpacity onPress={()=>{this.navSecond(2)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
-            <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>De acuerdo</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{backgroundColor:'#d80e0e'}}>
-          <TouchableOpacity onPress={()=>{this.navSecond(3)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
-            <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>En desacuerdo</Text>
+          <TouchableOpacity onPress={()=>{this.navSecond(5)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
+            <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>5</Text>
           </TouchableOpacity>
         </View>
         <View style={{backgroundColor:'#d80e0e'}}>
           <TouchableOpacity onPress={()=>{this.navSecond(4)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
-            <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>Muy desacuerdo</Text>
+            <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>4</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{backgroundColor:'#d80e0e'}}>
+          <TouchableOpacity onPress={()=>{this.navSecond(3)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
+            <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>3</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{backgroundColor:'#d80e0e'}}>
+          <TouchableOpacity onPress={()=>{this.navSecond(2)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
+            <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>2</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{backgroundColor:'#d80e0e'}}>
+          <TouchableOpacity onPress={()=>{this.navSecond(1)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
+            <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>1</Text>
           </TouchableOpacity>
         </View>
       </View>)
@@ -99,12 +104,17 @@ module.exports = class Preguntas extends Component{
         <View>
           <View style={{backgroundColor:'#d80e0e',marginTop:20}}>
             <TouchableOpacity onPress={()=>{this.navSecond(1)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
-              <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>Verdadero</Text>
+              <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>Si</Text>
             </TouchableOpacity>
           </View>
           <View style={{backgroundColor:'#d80e0e'}}>
             <TouchableOpacity onPress={()=>{this.navSecond(0)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
-              <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>Falso</Text>
+              <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>No</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{backgroundColor:'#d80e0e'}}>
+            <TouchableOpacity onPress={()=>{this.navSecond('NA')}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
+              <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>N/A</Text>
             </TouchableOpacity>
           </View>
         </View>)
