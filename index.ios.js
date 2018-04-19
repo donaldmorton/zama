@@ -78,7 +78,7 @@ class MainNavigator extends Component{
          case 'encuestas':
             return(<Encuestas encuesta={route.encuesta} navigator={navigator} title="Encuestas"/>);
          case 'preguntas':
-            return(<Pregunta encuesta={route.encuesta} index={route.index} navigator={navigator} title="Preguntas"/>);
+            return(<Pregunta respuestas={route.respuestas} encuesta={route.encuesta} index={route.index} navigator={navigator} title="Preguntas"/>);
          case 'comentarios':
             return(<Comentarios encuesta={route.encuesta} navigator={navigator} title="Comentarios"/>);
       }

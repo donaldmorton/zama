@@ -13,6 +13,7 @@ module.exports = class Encuestas extends Component{
       this.props.navigator.push({
          id: 'preguntas',
          encuesta:encuesta,
+         respuestas:[],
          index:index
       });
    }

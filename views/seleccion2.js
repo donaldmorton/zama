@@ -15,6 +15,7 @@ module.exports = class Seleccion extends Component{
     super(props)
     this.state = {
       options:[],
+      tienda:'50',
       puestoCheck:''
     }
   }
@@ -80,13 +81,13 @@ module.exports = class Seleccion extends Component{
         <Text style={stylesWelcome.description}>
           CR Tienda:
         </Text>
-        <TextInput style={stylesWelcome.select} onChangeText={(tienda) => this.setState({tienda})} value={this.state.tienda}/>
+        <TextInput style={stylesWelcome.select} onChangeText={(tienda) => this.setState({tienda:tienda.toUpperCase()})} value={this.state.tienda}/>
         <Text style={stylesWelcome.description}>
-          Numero de Entrevistador:
+          Número de Entrevistador:
         </Text>
         <TextInput keyboardType={'numeric'} style={stylesWelcome.select} onChangeText={(entrevistador) => this.setState({entrevistador})} value={this.state.entrevistador}/>
         <Text style={stylesWelcome.description}>
-          Numero de Entrevistado:
+          Número de Entrevistado:
         </Text>
         <TextInput keyboardType={'numeric'}  style={stylesWelcome.select} onChangeText={(entrevistado) => this.setState({entrevistado})} value={this.state.entrevistado}/>
         </View>

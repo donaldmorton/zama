@@ -45,16 +45,39 @@ module.exports = class Preguntas extends Component{
             entrevistado,
             entrevistador
           }
-
+          //AlertIOS.alert(JSON.stringify(record));
           api.track('encuestas',record);
+
+          if(self.props.respuestas){
+            self.props.respuestas.push(record);
+          }
+
+          //AlertIOS.alert(JSON.stringify(self.props.respuestas)+'r');
 
           if(self.props.encuesta.preguntas.length>(self.props.index+1)){
             self.props.navigator.push({
               id: 'preguntas',
               encuesta:self.props.encuesta,
+              respuestas:self.props.respuestas,
               index:self.props.index+1
             });
           }else{
+            case0 = self.props.respuestas[0];
+            resultado = {
+              encuesta:case0.e,
+              puesto:case0.puesto,
+              plaza:case0.plaza,
+              distrito :case0.distrito,
+              id:case0.iid,
+              entrevistador:case0.entrevistador,
+              entrevistado:case0.entrevistado,
+              tienda:case0.tienda,
+            }
+            self.props.respuestas.map((r)=>{
+              resultado['respuesta_'+r.pregunta] = r.r;
+            })
+            console.log(resultado,'444553323');
+            api.trackFull(resultado.encuesta,resultado);
             self.props.navigator.push({
               id: 'comentarios',
               encuesta:self.props.encuesta

@@ -39,11 +39,8 @@ module.exports = class Comentarios extends Component{
                   distrito:self.state.distrito,
                });
                self.props.navigator.push({
-                  id: 'home',
-                  puesto:puesto,
-                  distrito:self.state.distrito,
-                  plaza:self.state.plaza,
-               });
+                  id: 'seleccion'
+               })
             })
          })
       })
