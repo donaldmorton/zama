@@ -157,6 +157,21 @@ module.exports = class Preguntas extends Component{
             </TouchableOpacity>
           </View>)
           break;
+          case '4':
+          return(
+            <View>
+              <View style={{backgroundColor:'#d80e0e',marginTop:20}}>
+                <TouchableOpacity onPress={()=>{this.navSecond(1)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
+                  <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>Si</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{backgroundColor:'#d80e0e'}}>
+                <TouchableOpacity onPress={()=>{this.navSecond(0)}}style={{backgroundColor:'#f22a2a',borderWidth:1,borderColor:'#f45757'}}>
+                  <Text style={{color:'#FFFFFF',paddingLeft:20,fontSize:26,paddingTop:3,paddingBottom:5,fontWeight:'bold'}}>No</Text>
+                </TouchableOpacity>
+              </View>
+            </View>)
+            break;
         }
       }
 
