@@ -80,32 +80,29 @@ module.exports = class Seleccion extends Component{
             <Text style={stylesWelcome.description}>
                Elige tu puesto:
             </Text>
-            <Select style={stylesWelcome.select} width={200} ref="SELECT1"defaultValue="Asesor de tienda"optionListRef={this._getOptionList.bind(this)} onSelect={this._canada.bind(this)}>
+            <Select style={stylesWelcome.select} width={200} ref="SELECT1"defaultValue=" "optionListRef={this._getOptionList.bind(this)} onSelect={this._canada.bind(this)}>
                {this.state.options}
             </Select>
-            <OptionList ref="OPTIONLIST" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
             <Text style={stylesWelcome.description}>
                ¿De qué plaza eres?
             </Text>
             <Select style={stylesWelcome.select} width={200} ref="SELECT2" optionListRef={this._getOptionList2.bind(this)} onSelect={this._mexico.bind(this)}>
-               <Option>Plaza</Option>
                <Option>Centro</Option>
                <Option>Sur</Option>
                <Option>Saltillo</Option>
                <Option>Norte</Option>
                <Option>Oriente</Option>
             </Select>
-            <OptionList ref="OPTIONLIST2" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
             <Text style={stylesWelcome.description}>
                ¿De qué distrito eres?
             </Text>
             <Select style={stylesWelcome.select} width={200} ref="SELECT3" optionListRef={this._getOptionList3.bind(this)} onSelect={this._eua.bind(this)}>
-               <Option>Distrito</Option>
                <Option>D1</Option>
                <Option>D2</Option>
                <Option>D3</Option>
-               <Option>Plaza</Option>
             </Select>
+            <OptionList ref="OPTIONLIST" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
+            <OptionList ref="OPTIONLIST2" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
             <OptionList ref="OPTIONLIST3" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
             <Button onPress={this.navSecond.bind(this)}style={{paddingRight:10}}>CONTINUAR</Button>
          </LinearGradient>
