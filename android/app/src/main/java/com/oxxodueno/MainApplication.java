@@ -4,7 +4,6 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
-import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -20,6 +19,7 @@ public class MainApplication extends Application implements ReactApplication {
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
 
     @Override
+<<<<<<< HEAD
     protected String getJSBundleFile() {
       return CodePush.getJSBundleFile();
     }
@@ -32,6 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
 
 
     @Override
+=======
+>>>>>>> master
     protected boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
     }
@@ -40,8 +42,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new CodePush(null, getApplicationContext(), BuildConfig.DEBUG),
-              new LinearGradientPackage()); // <-- Add this line with your package name.
+          new LinearGradientPackage()); // <-- Add this line with your package name.
     }
 
   };
