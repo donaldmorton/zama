@@ -135,7 +135,7 @@ class MainNavigator extends Component{
          RightButton: function(route, navigator, index, navState) {
             if(route.id == 'home'){
                return(
-                  <TouchableOpacity onPress={() => {navigator.replace({id:'seleccion',puestoCheck:puesto})}}>
+                  <TouchableOpacity  style={{padding:3}} onPress={() => {navigator.replace({id:'seleccion',puestoCheck:puesto})}}>
                      <Text style={{color:'#FFFFFF',fontWeight:'bold',marginTop:14}}>{route.puesto.toUpperCase()}  </Text>
                   </TouchableOpacity>
                );
