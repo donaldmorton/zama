@@ -89,9 +89,9 @@ android {
     defaultConfig {
         applicationId "com.oxxodueno"
         minSdkVersion 16
-        targetSdkVersion 22
-        versionCode 26
-        versionName "2.1"
+        targetSdkVersion 26
+        versionCode 31
+        versionName "2.6"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {AppRegistry,StyleSheet,Text,Image,StatusBar,Dimensions,Navigator,ListView,TouchableOpacity,TouchableHighlight,TextInput,AsyncStorage,View} from 'react-native';
+import {AppRegistry,StyleSheet,Alert,Text,Image,StatusBar,Dimensions,Navigator,ListView,TouchableOpacity,TouchableHighlight,TextInput,AsyncStorage,View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
 import api from '../api.js'
 import DropDown, {
@@ -73,6 +73,12 @@ module.exports = class Seleccion extends Component{
       })
    }
 
+   opcionesDinamicas(){
+    if(this.state.plaza=="Monterrey Sur"){
+        return <Option>D4</Option>
+    }
+   }
+
    render(){
       return(
          <LinearGradient colors={['#f22a2a','#ed6767']} style={stylesWelcome.container}>
@@ -84,7 +90,7 @@ module.exports = class Seleccion extends Component{
                {this.state.options}
             </Select>
             <Text style={stylesWelcome.description}>
-               ¿De qué plaza eres?
+               ¿Plaza donde está la tienda visitada ?
             </Text>
             <Select style={stylesWelcome.select} width={200} ref="SELECT2" defaultValue=" " optionListRef={this._getOptionList2.bind(this)} onSelect={this._mexico.bind(this)}>
                <Option>Monterrey Centro</Option>
@@ -94,16 +100,17 @@ module.exports = class Seleccion extends Component{
                <Option>Monterrey Oriente</Option>
             </Select>
             <Text style={stylesWelcome.description}>
-               ¿De qué distrito eres?
+               ¿Distrito donde está la tienda visitada?
             </Text>
             <Select style={stylesWelcome.select} width={200} ref="SELECT3" defaultValue=" " optionListRef={this._getOptionList3.bind(this)} onSelect={this._eua.bind(this)}>
                <Option>D1</Option>
                <Option>D2</Option>
                <Option>D3</Option>
+               {this.opcionesDinamicas()}
             </Select>
-            <OptionList ref="OPTIONLIST" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
-            <OptionList ref="OPTIONLIST2" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
-            <OptionList ref="OPTIONLIST3" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)'}}/>
+            <OptionList ref="OPTIONLIST" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)',marginTop:120}}/>
+            <OptionList ref="OPTIONLIST2" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)',marginTop:120}}/>
+            <OptionList ref="OPTIONLIST3" overlayStyles={{backgroundColor:'rgba(249, 24, 24, 0)',marginTop:140}}/>
             <Button onPress={this.navSecond.bind(this)}style={{paddingRight:10}}>CONTINUAR</Button>
          </LinearGradient>
       )
